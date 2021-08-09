@@ -2,18 +2,24 @@
 
 @section('content')
     <div class="bread">{{$bread}}</div>
+    <h1>{{ $contents->id }}</h1>
+
     <div class="container">
         <div class="detail_wrapper">
             <div class="detail_image">
              <img src="{{asset('/img/test/'.$contents->image_name)}}">
             </div>
 
-            <div class="content_favorite_wrapper">
-            @if($contents->favo == null)
+            <div class="content_favorite_wrapper" id="app">
+            <!-- @if($contents->favo == null)
                 <a href="/update_favo?content_id={{$contents->id}}" class="content_favorite button">fav</a>
             @else
                 <a href="/update_favo?content_id={{$contents->id}}" class="content_favorite faved">faved</a>
-            @endif
+            @endif -->
+                <favo
+                    login_info = "{{ json_encode($loginInfo) }}"
+                    content_id = "{{ json_encode($contents->id) }}"
+                />
             </div>
         
             <div class="detail_pr">

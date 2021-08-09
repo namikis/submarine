@@ -65,15 +65,15 @@ class content extends Model
         return $contents;
     }
 
-    //js導入で消す
     public static function update_favoById($content_id,$user_id){
-        $select = "id";
 
+        //$user_favorite_id = getFavorite($content_id,$user_id);
+        $select = "id";
         $user_favorite_id = DB::table('user_favorite')
-        ->select(DB::raw($select))
-        ->where('content_id', '=', $content_id)
-        ->where('user_id', '=', $user_id)
-        ->first();
+                        ->select(DB::raw($select))
+                        ->where('content_id', "=", $content_id)
+                        ->where('user_id', "=", $user_id)
+                        ->first();
 
         if($user_favorite_id == null){
             $data = array(
@@ -87,5 +87,16 @@ class content extends Model
             ->where('id',$user_favorite_id->id)->delete();
         }
         
+    }
+
+    //for vue.
+    public static function getFavorite($content_id, $user_id){
+        $select = "id";
+        $favorite_id = DB::table('user_favorite')
+                        ->select(DB::raw($select))
+                        ->where('content_id', "=", $content_id)
+                        ->where('user_id', "=", $user_id)
+                        ->first();
+        return $favorite_id;
     }
 }
