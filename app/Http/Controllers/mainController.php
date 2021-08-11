@@ -60,10 +60,11 @@ class mainController extends Controller
         $various_flag = 1;
         $contents = content::getVarious();
         return view('main.various')
-        ->with('contents',$contents)
         ->with('loginInfo',$loginInfo)
         ->with('various_flag',$various_flag)
-        ->with('bread','various');
+        ->with('bread','various')
+        ->with('contents', $contents)
+        ->with('keywords','');
     }
 
     public function detail(Request $request){

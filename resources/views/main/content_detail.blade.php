@@ -2,7 +2,6 @@
 
 @section('content')
     <div class="bread">{{$bread}}</div>
-    <h1>{{ $contents->id }}</h1>
 
     <div class="container">
         <div class="detail_wrapper">
@@ -96,16 +95,17 @@
     }
     
     .content_favorite_wrapper{
-        text-align:right;
         margin:0px auto;
         width:60%;
+        display:flex;
+        justify-content:flex-end;
     }
 
-    .faved{
+    .faved,.fav{
         opacity:0.9;
         color:lightgrey;
         padding: 5px 20px;
-        width: 15%;
+        width: 100% !important;
         background: linear-gradient(to top, #0000d2, #5bcaff);
         border-radius: 20px;
         font-size: 18px;

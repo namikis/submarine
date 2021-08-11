@@ -3,17 +3,15 @@
 @section('content')
     <div class="bread">{{$bread}}</div>
     <div class="container">
-    @if(isset($various_flag))
-        <div class="reload" onClick="reload()">
-            <h2>reload</h2>
+        <div id="app">
+            <list
+                login_info = "{{ json_encode($loginInfo) }}"
+                Bread = "{{ json_encode($bread) }}"
+                Keywords = "{{ json_encode($keywords) }}"
+            />
         </div>
-    @elseif(isset($search_flag))
-        <div class="search_result">
-            <p>【{{$keywords}}】</p>
-        </div>
-    @endif
-
-        <div class="contents_wrapper">
+        
+        <!-- <div class="contents_wrapper">
         @if(count($contents)>=1)
             @foreach($contents as $content)
                 <div class="content">
@@ -28,13 +26,13 @@
         @else  
             <p>一致するものがありません。</p>
         @endif
-        </div>
+        </div> -->
     </div>
 @endsection
 
 <style>
 
-    .content{
+    /* .content{
         width:32%;
         margin:20px 5px;
     }
@@ -64,6 +62,6 @@
         display: inline-block;
         margin-top: 10px;
         color:white;
-    }
+    } */
 
 </style>

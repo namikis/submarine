@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/favo/getFavo', 'api\favoApiController@getFavo');
 Route::post('/favo/updateFavo', 'api\favoApiController@updateFavo');
+
+Route::post('/home/getVarious', 'api\homeApiController@getVarious');
