@@ -8,7 +8,7 @@
         </div>
         <div class="contents_wrapper">
             <div v-if="contents.length >= 1" class="contents">
-                <div v-for="content in contents" class="content" :key=content>
+                <div v-for="content in contents" class="content" :key="content.id">
                     <div class="content_image">
                         <a :href="'/content_detail?id='+content.id"><img :src="'/img/test/'+content.image_name"></a>
                     </div>
@@ -17,7 +17,10 @@
                     </div>                
                 </div>
             </div>
-            <div v-else>
+            <div v-else class="no_contents">
+                <div class="load_wrapper" v-if="load_show == true">
+                    <i class="fa fa-spinner fa-pulse fa-3x fa-fw loading"></i>
+                </div>
                 <p>一致するものがありません。</p>
             </div>
         </div>
@@ -31,7 +34,8 @@ export default {
     props:['login_info', 'Bread', 'Keywords'],
     data(){
         return{
-            contents:{}
+            contents:{},
+            load_show:true
         }
     },
     computed:{
@@ -47,6 +51,14 @@ export default {
                         this.contents = res.data.contents;
                     });
         },
+        getSearch(){
+            var params = new URLSearchParams();
+            params.append('keyword',this.keywords);
+            axios.post("api/home/getSearch",params)
+                    .then(res => {
+                        this.contents = res.data.contents;
+                    });
+        },
         reload(){
             this.getVarious();
         }
@@ -55,10 +67,14 @@ export default {
         this.loginInfo = JSON.parse(this.login_info);
         this.bread = JSON.parse(this.Bread);
         this.keywords = JSON.parse(this.Keywords);
-        console.log("this.bread");
+        
         if(this.bread == 'various'){
-            console.log("tes");
             this.getVarious();
+        }else if(this.bread == 'search'){
+            this.getSearch();
+            setTimeout(() => {
+                this.load_show = false
+            },1000);
         }
     },updated(){
 
@@ -99,5 +115,21 @@ export default {
         display: inline-block;
         margin-top: 10px;
         color:white;
+    }
+
+    .loading{
+        color:#0000d2;
+    }
+
+    .load_wrapper{
+        position:absolute;
+        left:0;
+        right:0;
+        margin:0 auto;
+        background:#f8fafc;
+    }
+
+    .no_contents{
+        position:relative;
     }
 </style>

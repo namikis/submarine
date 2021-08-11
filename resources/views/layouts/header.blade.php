@@ -7,6 +7,7 @@
     <title>Submarine</title>
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="{{asset('js/jquery.min.js')}}" type="text/javascript"></script>
 </head>
 <body>

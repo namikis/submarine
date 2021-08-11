@@ -2053,12 +2053,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['login_info', 'Bread', 'Keywords'],
   data: function data() {
     return {
-      contents: {}
+      contents: {},
+      load_show: true
     };
   },
   computed: {
@@ -2075,19 +2079,33 @@ __webpack_require__.r(__webpack_exports__);
         _this.contents = res.data.contents;
       });
     },
+    getSearch: function getSearch() {
+      var _this2 = this;
+
+      var params = new URLSearchParams();
+      params.append('keyword', this.keywords);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("api/home/getSearch", params).then(function (res) {
+        _this2.contents = res.data.contents;
+      });
+    },
     reload: function reload() {
       this.getVarious();
     }
   },
   created: function created() {
+    var _this3 = this;
+
     this.loginInfo = JSON.parse(this.login_info);
     this.bread = JSON.parse(this.Bread);
     this.keywords = JSON.parse(this.Keywords);
-    console.log("this.bread");
 
     if (this.bread == 'various') {
-      console.log("tes");
       this.getVarious();
+    } else if (this.bread == 'search') {
+      this.getSearch();
+      setTimeout(function () {
+        _this3.load_show = false;
+      }, 1000);
     }
   },
   updated: function updated() {}
@@ -6657,7 +6675,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.content[data-v-1856aeee]{\n    width:32%;\n    margin:20px 5px;\n}\n.content_image img[data-v-1856aeee]{\n    height:200px;\n    max-width:100%;\n}\n.content_image[data-v-1856aeee]{\n    border:1px solid gray;\n}\n.contents_wrapper[data-v-1856aeee]{\n    text-align:center;\n    width: 80%;\n    margin: 0 auto;\n    padding:50px 0;\n}\n.contents[data-v-1856aeee]{\n    display:flex;\n    flex-wrap:wrap;\n}\n.content_tag[data-v-1856aeee]{\n    background:linear-gradient(to top, #0000d2, #5bcaff);      \n    border-radius: 30px;\n    padding: 3px 10px;\n    display: inline-block;\n    margin-top: 10px;\n    color:white;\n}\n", ""]);
+exports.push([module.i, "\n.content[data-v-1856aeee]{\n    width:32%;\n    margin:20px 5px;\n}\n.content_image img[data-v-1856aeee]{\n    height:200px;\n    max-width:100%;\n}\n.content_image[data-v-1856aeee]{\n    border:1px solid gray;\n}\n.contents_wrapper[data-v-1856aeee]{\n    text-align:center;\n    width: 80%;\n    margin: 0 auto;\n    padding:50px 0;\n}\n.contents[data-v-1856aeee]{\n    display:flex;\n    flex-wrap:wrap;\n}\n.content_tag[data-v-1856aeee]{\n    background:linear-gradient(to top, #0000d2, #5bcaff);      \n    border-radius: 30px;\n    padding: 3px 10px;\n    display: inline-block;\n    margin-top: 10px;\n    color:white;\n}\n.loading[data-v-1856aeee]{\n    color:#0000d2;\n}\n.load_wrapper[data-v-1856aeee]{\n    position:absolute;\n    left:0;\n    right:0;\n    margin:0 auto;\n    background:#f8fafc;\n}\n.no_contents[data-v-1856aeee]{\n    position:relative;\n}\n", ""]);
 
 // exports
 
@@ -38292,7 +38310,7 @@ var render = function() {
             "div",
             { staticClass: "contents" },
             _vm._l(_vm.contents, function(content) {
-              return _c("div", { key: content, staticClass: "content" }, [
+              return _c("div", { key: content.id, staticClass: "content" }, [
                 _c("div", { staticClass: "content_image" }, [
                   _c(
                     "a",
@@ -38316,7 +38334,17 @@ var render = function() {
             }),
             0
           )
-        : _c("div", [_c("p", [_vm._v("一致するものがありません。")])])
+        : _c("div", { staticClass: "no_contents" }, [
+            _vm.load_show == true
+              ? _c("div", { staticClass: "load_wrapper" }, [
+                  _c("i", {
+                    staticClass: "fa fa-spinner fa-pulse fa-3x fa-fw loading"
+                  })
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _c("p", [_vm._v("一致するものがありません。")])
+          ])
     ])
   ])
 }
