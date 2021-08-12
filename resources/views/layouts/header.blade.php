@@ -40,6 +40,7 @@
                     <a href="/various" class="header-list">various</a>
                 @else
                     <a href="/account" class="header-list">Account</a>
+                    <a href="/content/form" class="header-list">Add contents</a>
                     <a href="/favorite" class="header-list">favorite</a>
                     <a href="/intro" class="header-list">introduction</a>
                     <a href="/various" class="header-list">various</a>
@@ -60,6 +61,9 @@
 
 
 <style>
+    a{
+        text-decoration:none;
+    }
     .header{
         background: linear-gradient(to top, #0000d2, #5bcaff);
         padding:0px 30px;
@@ -119,6 +123,7 @@
         font-size:20px;
         background-color:white;
         color:black;
+        margin-top:10px;
         padding:5px 10px;
         border-radius:20px;
         cursor:pointer;

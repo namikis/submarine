@@ -24,4 +24,21 @@ class contentLogic extends Model
         return $contents;
 
     }
+
+    public static function preSaveImage($file){
+        $file_name = $file->getClientOriginalName();
+        $temp_path = public_path("img/temp");
+        $file->move($temp_path,$file_name);
+
+        return $file_name;
+    }
+
+    public static function saveImage($file_name){
+        $time_file_name = time() . $file_name;
+        $file_path = public_path('img/content');
+        $temp_path = public_path("img/temp");
+        rename($temp_path . "/" . $file_name, $file_path . "/" . $time_file_name);
+
+        return $time_file_name;
+    }
 }

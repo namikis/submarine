@@ -25,11 +25,9 @@ class mainController extends Controller
         }
         $user_id = $loginInfo['user_id'];
 
-        $contents = content::getFavoriteById($user_id);
-
         return view('main.favorite')
         ->with('loginInfo',$loginInfo)
-        ->with('contents',$contents)
+        ->with('keywords','')
         ->with('bread','favorite');
     }
 
@@ -56,14 +54,15 @@ class mainController extends Controller
         ->with('bread','detail');
     }
 
-    public function update_favo(Request $request){
-        $loginInfo = session('loginInfo');
-        if(!isset($loginInfo)){
-            return redirect('/signIn');
-        }
+    //  Vueに移行
+    // public function update_favo(Request $request){
+    //     $loginInfo = session('loginInfo');
+    //     if(!isset($loginInfo)){
+    //         return redirect('/signIn');
+    //     }
 
-        content::update_favoById($request->content_id,$loginInfo['user_id']);
+    //     content::update_favoById($request->content_id,$loginInfo['user_id']);
 
-        return redirect()->back();
-    }
+    //     return redirect()->back();
+    // }
 }

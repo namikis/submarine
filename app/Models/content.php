@@ -10,6 +10,13 @@ class content extends Model
     protected $table = 'contents';
     protected $guarded = 'id';
 
+    public static $rules = [
+        'tag' => 'required',
+        'link' => 'required',
+        'detail' => 'required|max:1000',
+        'image' => 'required|image|file'
+    ];
+
     public static function getVarious(){
         //ランダムに9件取得
         $select ="contents.image_name,tags.tag,contents.id";
@@ -98,5 +105,16 @@ class content extends Model
                         ->where('user_id', "=", $user_id)
                         ->first();
         return $favorite_id;
+    }
+
+    public static function insertContent($data, $tag){
+        DB::table('contents')->insert($data);
+        $content_id = DB::getPdo()->lastInsertId();
+
+        $data2 = array(
+            "content_id" => $content_id,
+            "tag" => $tag
+        );
+        DB::table("tags")->insert($data2);
     }
 }

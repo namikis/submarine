@@ -10,7 +10,7 @@
             <div v-if="contents.length >= 1" class="contents">
                 <div v-for="content in contents" class="content" :key="content.id">
                     <div class="content_image">
-                        <a :href="'/content_detail?id='+content.id"><img :src="'/img/test/'+content.image_name"></a>
+                        <a :href="'/content_detail?id='+content.id"><img :src="'/img/content/'+content.image_name"></a>
                     </div>
                     <div v-if="content.tag != null">
                         <span class="content_tag">{{content.tag}}</span>
@@ -59,8 +59,21 @@ export default {
                         this.contents = res.data.contents;
                     });
         },
+        getFavorite(){
+            var params = new URLSearchParams();
+            params.append('user_id',this.loginInfo['user_id']);
+            axios.post('api/home/getFavorite',params)
+                    .then(res=> {
+                        this.contents = res.data.contents;
+                    });
+        },
         reload(){
             this.getVarious();
+        },
+        timeout(){
+            setTimeout(() => {
+                this.load_show = false
+            },1000);
         }
     },
     created(){
@@ -72,9 +85,10 @@ export default {
             this.getVarious();
         }else if(this.bread == 'search'){
             this.getSearch();
-            setTimeout(() => {
-                this.load_show = false
-            },1000);
+            this.timeout();
+        }else if(this.bread == 'favorite'){
+            this.getFavorite();
+            this.timeout();
         }
     },updated(){
 

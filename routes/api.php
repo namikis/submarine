@@ -22,3 +22,4 @@ Route::post('/favo/updateFavo', 'api\favoApiController@updateFavo');
 
 Route::post('/home/getVarious', 'api\homeApiController@getVarious');
 Route::post('/home/getSearch', 'api\homeApiController@getSearch');
+Route::post('/home/getFavorite', 'api\homeApiController@getFavorite');

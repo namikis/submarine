@@ -6,7 +6,7 @@
     <div class="container">
         <div class="detail_wrapper">
             <div class="detail_image">
-             <img src="{{asset('/img/test/'.$contents->image_name)}}">
+             <img src="{{asset('/img/content/'.$contents->image_name)}}">
             </div>
 
             <div class="content_favorite_wrapper" id="app">
@@ -33,7 +33,7 @@
             <div class="detail_link">
             <p class="detail_title"><span>the link</span></p>
                 @if($contents->content_link)
-                    <a href="{{$contents->content_link}}">{{$contents->content_link}}</a>
+                    <p class="link_p"><a href="{{$contents->content_link}}">{{$contents->content_link}}</a></p>
                 @else
                     <p>記載なし</p>
                 @endif
@@ -44,6 +44,11 @@
 @endsection
 
 <style>
+
+    .link_p{
+        overflow-wrap:break-word;
+    }
+
     .detail_wrapper{
         text-align:center;
         padding:25px 0;
@@ -76,8 +81,8 @@
         font-size: 25px;
         text-align: left;
         position:absolute;
-        top:-40;
-        left:-10;
+        top: -20;
+        left: 15;
     }
 
     .detail_title span{

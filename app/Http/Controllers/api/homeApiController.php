@@ -21,4 +21,10 @@ class homeApiController extends Controller
         $data['contents'] = contentLogic::getContents($keyword);
         return json_encode($data);
     }
+
+    public function getFavorite(Request $request){
+        $user_id = $request->user_id;
+        $data['contents'] = content::getFavoriteById($user_id);
+        return json_encode($data);
+    }
 }

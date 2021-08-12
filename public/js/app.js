@@ -2088,13 +2088,27 @@ __webpack_require__.r(__webpack_exports__);
         _this2.contents = res.data.contents;
       });
     },
+    getFavorite: function getFavorite() {
+      var _this3 = this;
+
+      var params = new URLSearchParams();
+      params.append('user_id', this.loginInfo['user_id']);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/home/getFavorite', params).then(function (res) {
+        _this3.contents = res.data.contents;
+      });
+    },
     reload: function reload() {
       this.getVarious();
+    },
+    timeout: function timeout() {
+      var _this4 = this;
+
+      setTimeout(function () {
+        _this4.load_show = false;
+      }, 1000);
     }
   },
   created: function created() {
-    var _this3 = this;
-
     this.loginInfo = JSON.parse(this.login_info);
     this.bread = JSON.parse(this.Bread);
     this.keywords = JSON.parse(this.Keywords);
@@ -2103,9 +2117,10 @@ __webpack_require__.r(__webpack_exports__);
       this.getVarious();
     } else if (this.bread == 'search') {
       this.getSearch();
-      setTimeout(function () {
-        _this3.load_show = false;
-      }, 1000);
+      this.timeout();
+    } else if (this.bread == 'favorite') {
+      this.getFavorite();
+      this.timeout();
     }
   },
   updated: function updated() {}
@@ -38317,7 +38332,7 @@ var render = function() {
                     { attrs: { href: "/content_detail?id=" + content.id } },
                     [
                       _c("img", {
-                        attrs: { src: "/img/test/" + content.image_name }
+                        attrs: { src: "/img/content/" + content.image_name }
                       })
                     ]
                   )
