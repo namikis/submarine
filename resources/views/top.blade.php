@@ -1,4 +1,8 @@
-<link rel="stylesheet" href="{{asset('/css/main.css')}}">
+@if(app('env') != 'production')
+    <link rel="stylesheet" href="{{asset('/css/main.css')}}">
+@else
+    <link rel="stylesheet" href="{{secure_asset('/css/main.css')}}">
+@endif
 <div class="top_wrapper">
     <div class="top_content">
         <div class="top_title">

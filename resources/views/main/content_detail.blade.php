@@ -6,7 +6,11 @@
     <div class="container">
         <div class="detail_wrapper">
             <div class="detail_image">
-             <img src="{{asset('/img/content/'.$contents->image_name)}}">
+            @if(app('env') != 'production')
+                <img src="{{asset('/img/content/'.$contents->image_name)}}">
+            @else
+                <img src="{{  secure_asset('/img/content/'.$contents->image_name)  }}">
+            @endif
             </div>
 
             <div class="content_favorite_wrapper" id="app">
@@ -119,4 +123,8 @@
 
 </style>
 
-<script src="{{asset('js/fav.js')}}"></script>
+@if(app('env') != 'production')
+    <script src="{{asset('js/fav.js')}}"></script>
+@else
+    <script src="{{  secure_asset('js/fav.js')  }}"></script>
+@endif

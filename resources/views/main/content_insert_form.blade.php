@@ -45,7 +45,11 @@
             <div class="form_wrapper">
                 <div class="pre_image">
                     <p>{{ $contents['image']  }}</p>
-                    <img src="{{ asset('img/temp/' . $contents['image']) }}" alt="" class="pre_image">
+                    @if(app('env') != 'production')
+                        <img src="{{ asset('img/temp/' . $contents['image']) }}" alt="" class="pre_image">
+                    @else
+                        <img src="{{ secure_asset('img/temp/' . $contents['image']) }}" alt="" class="pre_image">
+                    @endif
                 </div>
                 <div class="tag_wrapper form_item">
                     <p>タグ　：　{{ $contents['tag'] }}</p>
