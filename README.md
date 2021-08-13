@@ -1,2 +1,2 @@
 <p>広告というものを考え直すWebサービスです。</p>
-<img src="http://submarine21.herokuapp.com">
+<a href="http://submarine21.herokuapp.com">http://submarine21.herokuapp.com</a>
