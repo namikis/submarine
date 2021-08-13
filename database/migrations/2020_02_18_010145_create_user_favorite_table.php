@@ -13,17 +13,20 @@ class CreateUserFavoriteTable extends Migration
      */
     public function up()
     {
-        Schema::table('user_favorite', function (Blueprint $table) {
-            $sql = "
-                create table user_favorite(
-                    `id` int(11) not null auto_increment,
-                    `user_id` int(11) not null,
-                    `content_id` int(11) not null,
-                    primary key(`id`)
-                );
-            ";
-
-            DB::connection()->getPdo()->exec($sql);
+        Schema::create('user_favorite', function (Blueprint $table) {
+            // $sql = "
+            //     create table user_favorite(
+            //         `id` int(11) not null auto_increment,
+            //         `user_id` int(11) not null,
+            //         `content_id` int(11) not null,
+            //         primary key(`id`)
+            //     );
+            // ";
+            // DB::connection()->getPdo()->exec($sql);
+            $table->increments('id');
+            $table->integer('user_id');
+            $table->integer('content_id');
+            $table->primary('id');
         });
     }
 

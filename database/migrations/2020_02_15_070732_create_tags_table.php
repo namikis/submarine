@@ -13,17 +13,20 @@ class CreateTagsTable extends Migration
      */
     public function up()
     {
-        Schema::table('tags', function (Blueprint $table) {
-            $sql="
-                create table `tags`(
-                    `id` int(11) unsigned not null auto_increment,
-                    `content_id` int(11) unsigned not null,
-                    `tag` varchar(255) not null,
-                    primary key(`id`)
-                );
-            ";
-
-            DB::connection()->getPdo()->exec($sql);
+        Schema::create('tags', function (Blueprint $table) {
+            // $sql="
+            //     create table `tags`(
+            //         `id` int(11) unsigned not null auto_increment,
+            //         `content_id` int(11) unsigned not null,
+            //         `tag` varchar(255) not null,
+            //         primary key(`id`)
+            //     );
+            // ";
+            // DB::connection()->getPdo()->exec($sql);
+            $table->increments('id');
+            $table->integer('content_id');
+            $table->string('tag',255);
+            $table->primary('id');
         });
     }
 
