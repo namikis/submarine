@@ -26,7 +26,6 @@ class CreateUserFavoriteTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('content_id');
-            $table->primary('id');
         });
     }
 

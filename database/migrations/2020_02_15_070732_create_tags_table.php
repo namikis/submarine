@@ -26,7 +26,6 @@ class CreateTagsTable extends Migration
             $table->increments('id');
             $table->integer('content_id');
             $table->string('tag',255);
-            $table->primary('id');
         });
     }
 

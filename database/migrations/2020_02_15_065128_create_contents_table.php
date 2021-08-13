@@ -36,7 +36,6 @@ class CreateContentsTable extends Migration
             $table->string('content_detail',255);
             $table->string('content_link',255);
             $table->timestamps();
-            $table->primary('id');
             $table->unique('image_name');
         });
     }
