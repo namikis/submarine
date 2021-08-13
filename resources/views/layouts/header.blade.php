@@ -7,6 +7,7 @@
     <title>Submarine</title>
     <link rel="stylesheet" href="{{ mix('/css/app.css') }}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     @if(app('env') != 'production')
         <link rel="icon" href="{{ asset('/img/submarine_ic.png') }}">
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
@@ -61,7 +62,6 @@
 
     @yield('content')
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="{{ mix('js/app.js') }}"></script>
 </body>
 </html>
