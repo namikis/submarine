@@ -10,11 +10,9 @@
     @if(app('env') != 'production')
         <link rel="icon" href="{{ asset('/img/submarine_ic.png') }}">
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
-        <script src="{{asset('js/jquery.min.js')}}" type="text/javascript"></script>
     @else
         <link rel="icon" href="{{ secure_asset('/img/submarine_ic.png') }}">
         <link rel="stylesheet" href="{{ secure_asset('css/main.css') }}">
-        <script src="{{  secure_asset('js/jquery.min.js')  }}" type="text/javascript"></script>
     @endif
 
 </head>
@@ -61,7 +59,7 @@
 
     @yield('content')
 
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="{{asset('js/main.js')}}"></script>
     <script src="{{ mix('js/app.js') }}"></script>
 </body>
