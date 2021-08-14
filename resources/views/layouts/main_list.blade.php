@@ -14,8 +14,3 @@
         </div>
     </div>
 @endsection
-<style>
-    .sea_wrapper{
-        height:100%;
-    }   
-</style>

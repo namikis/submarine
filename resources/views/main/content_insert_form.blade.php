@@ -32,7 +32,7 @@
                 <div class="detail_wrapper form_item">
                     <p>コンテンツについて、詳しく説明してください。</p>
                     <div class="detail_form">
-                        <textarea name="detail" cols="60" rows="10"></textarea>
+                        <textarea name="detail" cols="60" rows="10" placeholder="max:200"></textarea>
                     </div>
                 </div>
                 <div class="send_wrapper form_item">

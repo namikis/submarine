@@ -54,5 +54,6 @@ html,body,div,h1,h2,h3,h4,h5{
     background-image:url('../img/natural_ocean.png');
     background-size: cover;
     width:100%;
+    min-height:100%;
     padding-bottom:100px;
 }
