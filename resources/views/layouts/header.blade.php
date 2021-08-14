@@ -31,7 +31,7 @@
             </div>
             @else
             <div class="header_menu">
-                <a href="/signUp" class="loginMessage">新規登録</a>
+                <a href="/intro" class="loginMessage">Submarineとは？</a>
             </div>
             @endif
             <div class="header_menu">
@@ -45,8 +45,8 @@
                 <div class="hidden_menu">
                 @if(isset($loginInfo)==false)
                     <a href="/signIn" class="header-list">ログイン</a>
-                    <a href="/intro" class="header-list">introduction</a>
                     <a href="/various" class="header-list">various</a>
+                    <a href="/signUp" class="header-list">新規登録</a>
                 @else
                     <a href="/account" class="header-list">Account</a>
                     <a href="/content/form" class="header-list">Add contents</a>

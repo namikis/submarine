@@ -9,15 +9,16 @@ html,body,div,h1,h2,h3,h4,h5{
 
 .container{
     max-width:1140px;
-    margin:30px auto 100px auto;
+    margin:30px auto 0px auto;
     box-shadow: 0 0 3px #747373;
     min-height: 100px;
+    background:#f8fafc;
 }
 
 .bread{
     max-width:1140px;
     margin:0 auto;
-    margin-top:120px;
+    padding-top:120px;
     font-size: 22px;
     font-weight: 500;
 }
@@ -47,4 +48,11 @@ html,body,div,h1,h2,h3,h4,h5{
 
 .input_form input{
     width:25%;
+}
+
+.sea_wrapper{
+    background-image:url('../img/natural_ocean.png');
+    background-size: cover;
+    width:100%;
+    padding-bottom:100px;
 }

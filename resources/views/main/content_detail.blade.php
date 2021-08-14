@@ -1,46 +1,48 @@
 @extends('layouts./header')
 
 @section('content')
+    <div class="sea_wrapper">
     <div class="bread">{{$bread}}</div>
 
-    <div class="container">
-        <div class="detail_wrapper">
-            <div class="detail_image">
-            @if(app('env') != 'production')
-                <img src="{{asset('/img/content/'.$contents->image_name)}}">
-            @else
-                <img src="{{  secure_asset('/img/content/'.$contents->image_name)  }}">
-            @endif
-            </div>
-
-            <div class="content_favorite_wrapper" id="app">
-            <!-- @if($contents->favo == null)
-                <a href="/update_favo?content_id={{$contents->id}}" class="content_favorite button">fav</a>
-            @else
-                <a href="/update_favo?content_id={{$contents->id}}" class="content_favorite faved">faved</a>
-            @endif -->
-                <favo
-                    login_info = "{{ json_encode($loginInfo) }}"
-                    content_id = "{{ json_encode($contents->id) }}"
-                />
-            </div>
-        
-            <div class="detail_pr">
-            <p class="detail_title"><span>what is this?</span></p>
-                @if($contents->content_detail != null)
-                    <p class="detail_text">{{$contents->content_detail}}</p>
+        <div class="container">
+            <div class="detail_wrapper">
+                <div class="detail_image">
+                @if(app('env') != 'production')
+                    <img src="{{asset('/img/content/'.$contents->image_name)}}">
                 @else
-                    <p class="detail_text">記載なし</p>
+                    <img src="{{  secure_asset('/img/content/'.$contents->image_name)  }}">
                 @endif
-            </div>
+                </div>
 
-            <div class="detail_link">
-            <p class="detail_title"><span>the link</span></p>
-                @if($contents->content_link)
-                    <p class="link_p"><a href="{{$contents->content_link}}">{{$contents->content_link}}</a></p>
+                <div class="content_favorite_wrapper" id="app">
+                <!-- @if($contents->favo == null)
+                    <a href="/update_favo?content_id={{$contents->id}}" class="content_favorite button">fav</a>
                 @else
-                    <p>記載なし</p>
-                @endif
+                    <a href="/update_favo?content_id={{$contents->id}}" class="content_favorite faved">faved</a>
+                @endif -->
+                    <favo
+                        login_info = "{{ json_encode($loginInfo) }}"
+                        content_id = "{{ json_encode($contents->id) }}"
+                    />
+                </div>
+            
+                <div class="detail_pr">
+                <p class="detail_title"><span>what is this?</span></p>
+                    @if($contents->content_detail != null)
+                        <p class="detail_text">{{$contents->content_detail}}</p>
+                    @else
+                        <p class="detail_text">記載なし</p>
+                    @endif
+                </div>
+
+                <div class="detail_link">
+                <p class="detail_title"><span>the link</span></p>
+                    @if($contents->content_link)
+                        <p class="link_p"><a href="{{$contents->content_link}}">{{$contents->content_link}}</a></p>
+                    @else
+                        <p>記載なし</p>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

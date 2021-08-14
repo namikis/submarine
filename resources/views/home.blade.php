@@ -1,12 +1,8 @@
 @extends('layouts./header')
 @section('content')
-    <div class="home_contaniner">
-        <h1 class="home-head"><span>What</span> do you want?</h1>
-        <form action="/search" method="get">
-            <input type="text" class="homeSearch" placeholder="Service, Product" name="keyword">
-            <button type="submit" class="homeSearchSubmit button">search</button>
-        </form>
-</div>
+    <div id="app">
+        <home/>
+    </div>
 @endsection
 
 <style>
@@ -39,6 +35,6 @@
 
     .home_container{
         max-width:1140px;
-        margin:150px auto 100px auto;
+        margin:0px auto 0px auto;
     }
 </style>

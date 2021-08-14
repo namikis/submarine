@@ -27,4 +27,9 @@ class homeApiController extends Controller
         $data['contents'] = content::getFavoriteById($user_id);
         return json_encode($data);
     }
+
+    public function getTags(){
+        $data['tags'] = content::getAllTags();
+        return json_encode($data);
+    }
 }

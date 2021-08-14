@@ -117,4 +117,11 @@ class content extends Model
         );
         DB::table("tags")->insert($data2);
     }
+
+    public static function getAllTags(){
+        $tags = DB::table('tags')
+                    ->select('tag')->distinct()
+                    ->get();
+        return $tags;
+    }
 }
