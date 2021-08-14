@@ -40,7 +40,7 @@ Route::get('/content_detail','mainController@detail');
 
 Route::get('/update_favo','mainController@update_favo');
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'homeController@index')->name('home');
 
 Route::get('/content/form', 'contentController@insert_form');
 Route::post('/content/preview', 'contentController@preview_form');
