@@ -60,4 +60,38 @@ class contentController extends Controller
                 ->with('loginInfo', $loginInfo)
                 ->with('bread','content-added');
     }
+
+    public function content_edit(Request $request){
+        $content_id = $request->id;
+        $loginInfo = session('loginInfo');
+        if(!isset($loginInfo)){
+            return redirect('/signIn');
+        }
+        $contents = content::getContentById($content_id);
+        $contents->id = $content_id;
+        return view('main/content_insert_form')
+                    ->with('loginInfo', $loginInfo)
+                    ->with('bread','edit')
+                    ->with('contents',$contents);
+    }
+
+    public function content_edit_done(Request $request){
+        $this->validate($request,[
+            'tag' => 'required',
+            'link' => 'required',
+            'detail' => 'required|max:200',
+        ]);
+        $loginInfo = session('loginInfo');
+        if(!isset($loginInfo)){
+            return redirect('/signIn');
+        }
+        $content_id = $request->content_id;
+        $data = array(
+            "content_link" => $request->link,
+            "content_detail" => $request->detail
+        );
+        content::updateContent($content_id,$data,$request->tag);
+
+        return redirect("/account");
+    }
 }

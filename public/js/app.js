@@ -2175,14 +2175,23 @@ __webpack_require__.r(__webpack_exports__);
         _this3.contents = res.data.contents;
       });
     },
+    getMyContents: function getMyContents() {
+      var _this4 = this;
+
+      var params = new URLSearchParams();
+      params.append('user_id', this.loginInfo['user_id']);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/home/getMyContents', params).then(function (res) {
+        _this4.contents = res.data.contents;
+      });
+    },
     reload: function reload() {
       this.getVarious();
     },
     timeout: function timeout() {
-      var _this4 = this;
+      var _this5 = this;
 
       setTimeout(function () {
-        _this4.load_show = false;
+        _this5.load_show = false;
       }, 1000);
     }
   },
@@ -2198,6 +2207,9 @@ __webpack_require__.r(__webpack_exports__);
       this.timeout();
     } else if (this.bread == 'favorite') {
       this.getFavorite();
+      this.timeout();
+    } else if (this.bread == 'account') {
+      this.getMyContents();
       this.timeout();
     }
   },
@@ -38655,7 +38667,9 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _c("p", [_vm._v("一致するものがありません。")])
+            _vm.bread != "account"
+              ? _c("p", [_vm._v("該当するものがありません。")])
+              : _vm._e()
           ])
     ])
   ])

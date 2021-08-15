@@ -40,7 +40,9 @@ class homeController extends Controller
         if(!isset($loginInfo)){
             return redirect('/signIn');
         }else{
-            return view('account')->with('loginInfo',$loginInfo);
+            return view('account')
+                    ->with('loginInfo',$loginInfo)
+                    ->with('bread', 'account');
         }
     }
 

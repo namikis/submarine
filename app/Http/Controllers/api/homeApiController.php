@@ -32,4 +32,9 @@ class homeApiController extends Controller
         $data['tags'] = content::getAllTags();
         return json_encode($data);
     }
+
+    public function getMyContents(Request $request){
+        $data['contents'] = content::getMyContents($request->user_id);
+        return json_encode($data);
+    }
 }

@@ -46,3 +46,6 @@ Route::get('/content/form', 'contentController@insert_form');
 Route::post('/content/preview', 'contentController@preview_form');
 Route::post('/content/insert', 'contentController@insert');
 
+Route::get('/content/edit', 'contentController@content_edit');
+Route::post('/content/edit', 'contentController@content_edit_done');
+

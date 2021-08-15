@@ -1,5 +1,11 @@
 @extends('layouts./header')
 
+@if(app('env') != 'production')
+    <link rel="stylesheet" href="{{asset('/css/contents.css')}}">
+@else
+    <link rel="stylesheet" href="{{secure_asset('/css/contents.css')}}">
+@endif
+
 @section('content')
     <div class="sea_wrapper">
     <div class="bread">{{$bread}}</div>
@@ -13,17 +19,19 @@
                     <img src="{{  secure_asset('/img/content/'.$contents->image_name)  }}">
                 @endif
                 </div>
-
-                <div class="content_favorite_wrapper" id="app">
-                <!-- @if($contents->favo == null)
-                    <a href="/update_favo?content_id={{$contents->id}}" class="content_favorite button">fav</a>
-                @else
-                    <a href="/update_favo?content_id={{$contents->id}}" class="content_favorite faved">faved</a>
-                @endif -->
-                    <favo
-                        login_info = "{{ json_encode($loginInfo) }}"
-                        content_id = "{{ json_encode($contents->id) }}"
-                    />
+                <div class="content_menu_wrapper">
+                    <div class="content_edit_wrapper">
+                        @if($loginInfo['user_id'] == $contents->company_id)
+                            <div class="content_edit"><a href="{{ '/content/edit?id=' . $contents->id }}" class="button">edit</a></div>
+                            <div class="content_delete"><a href="/content/delete" class="button">delete</a></div>
+                        @endif
+                    </div>
+                    <div class="content_favorite_wrapper" id="app">
+                        <favo
+                            login_info = "{{ json_encode($loginInfo) }}"
+                            content_id = "{{ json_encode($contents->id) }}"
+                        />
+                    </div>
                 </div>
             
                 <div class="detail_pr">
@@ -48,82 +56,6 @@
     </div>
     
 @endsection
-
-<style>
-
-    .link_p{
-        overflow-wrap:break-word;
-    }
-
-    .detail_wrapper{
-        text-align:center;
-        padding:25px 0;
-    }
-
-    .detail_image{
-        margin: 20px auto;
-        width: 60%;
-        border: 1px solid #3c3c3c;
-    }
-
-    .detail_image img{
-        max-height:400px;
-        max-width:60%;
-    }
-
-    .detail_pr,.detail_link{
-        margin: 40px auto;
-        border: 1px solid #3c3c3c;
-        width: 60%;
-        position:relative;
-        padding: 30px 0px 20px 0px;
-    }
-    
-    .detail_pr{
-        text-align: left;
-    }
-
-    .detail_title{
-        font-size: 25px;
-        text-align: left;
-        position:absolute;
-        top: -20;
-        left: 15;
-    }
-
-    .detail_title span{
-        background-color:#F8A900;
-        color:white;
-        padding:3px 10px;
-        border-radius:20px;
-    }
-
-    .detail_text{
-        padding:0 20px;
-        font-size:18px;
-        word-break:break-all;
-        line-height:35px;
-    }
-    
-    .content_favorite_wrapper{
-        margin:0px auto;
-        width:60%;
-        display:flex;
-        justify-content:flex-end;
-    }
-
-    .faved,.fav{
-        opacity:0.9;
-        color:lightgrey;
-        padding: 5px 20px;
-        width: 100% !important;
-        background: linear-gradient(to top, #0000d2, #5bcaff);
-        border-radius: 20px;
-        font-size: 18px;
-        cursor: pointer;
-    }
-
-</style>
 
 @if(app('env') != 'production')
     <script src="{{asset('js/fav.js')}}"></script>

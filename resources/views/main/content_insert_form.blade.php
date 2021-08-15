@@ -74,6 +74,45 @@
         @elseif($bread == 'content-added')
             <p>登録が完了しました。</p>
             <p><a href="/home">トップページへ</a></p>
+        @elseif($bread == 'edit')
+        <form action="/content/edit" method="post" enctype="multipart/form-data">
+            {{ csrf_field() }}
+            <div class="form_wrapper">
+                <div class="image_wrapper form_item">
+                    <p>画像を変える場合は作り直してください。</p>
+                    <div class="img_form">
+                        <div class="content_image">
+                            @if(app('env') != 'production')
+                                <img src="{{ asset('img/content/' . $contents->image_name) }}" alt="" class="pre_image">
+                            @else
+                                <img src="{{ secure_asset('img/content/' . $contents->image_name) }}" alt="" class="pre_image">
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="tag_wrapper form_item">
+                    <p>コンテンツのタグ（ジャンル）を入力してください。</p>
+                    <div class="tag_form text">
+                        <input type="text" name="tag" placeholder="「プログラミング」,「書籍」, etc..." value="{{ $contents->tag }}">
+                    </div>
+                </div>
+                <div class="link_wrapper form_item">
+                    <p>コンテンツのリンクを貼ってください。</p>
+                    <div class="link_form text">
+                        <input type="text" name="link" placeholder="URL" value="{{ $contents->content_link }}">
+                    </div>
+                </div>
+                <div class="detail_wrapper form_item">
+                    <p>コンテンツについて、詳しく説明してください。</p>
+                    <div class="detail_form">
+                        <textarea name="detail" cols="60" rows="10" placeholder="max:200">{{ $contents->content_detail }}</textarea>
+                    </div>
+                </div>
+                <div class="send_wrapper form_item">
+                    <input type="submit" value="変更する">
+                </div>
+                <input type="hidden" name="content_id" value="{{ $contents->id }}">
+        </form>
         @endif
     </div>
 @endsection

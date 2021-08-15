@@ -21,7 +21,7 @@
                 <div class="load_wrapper" v-if="load_show == true">
                     <i class="fa fa-spinner fa-pulse fa-3x fa-fw loading"></i>
                 </div>
-                <p>一致するものがありません。</p>
+                <p v-if="bread!='account'">該当するものがありません。</p>
             </div>
         </div>
     </div>
@@ -67,6 +67,14 @@ export default {
                         this.contents = res.data.contents;
                     });
         },
+        getMyContents(){
+            var params = new URLSearchParams();
+            params.append('user_id', this.loginInfo['user_id']);
+            axios.post('api/home/getMyContents',params)
+                    .then(res=>{
+                        this.contents = res.data.contents;
+                    });
+        },
         reload(){
             this.getVarious();
         },
@@ -88,6 +96,9 @@ export default {
             this.timeout();
         }else if(this.bread == 'favorite'){
             this.getFavorite();
+            this.timeout();
+        }else if(this.bread == 'account'){
+            this.getMyContents();
             this.timeout();
         }
     },updated(){

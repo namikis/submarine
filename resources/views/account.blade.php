@@ -1,9 +1,11 @@
+@include('parts.modal')
+
 @extends('layouts./header')
+
 
 @section('content')
 
-@include('parts./modal')
-    <div class="bread">account</div>
+    <div class="bread">{{ $bread }}</div>
     <div class="container">
         <div class="whole_account_wrapper">
             <h4>ユーザー情報</h4>
@@ -19,9 +21,24 @@
                 </div>
         </div>
     </div>
+    <div class="my_contents_wrapper">
+        <p>投稿一覧</p>
+        <div id="app">
+            <list
+                login_info = "{{ json_encode($loginInfo) }}"
+                Bread = "{{ json_encode($bread) }}"
+                Keywords = "{{ json_encode('') }}"
+            />
+        </div>
+    </div>
 @endsection
 
 <style>
+    .my_contents_wrapper p{
+        margin-top:50px;
+        font-size:26px;
+        text-align:center;
+    }
     table{
         margin:0 auto;
     }

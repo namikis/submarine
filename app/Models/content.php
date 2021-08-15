@@ -47,11 +47,12 @@ class content extends Model
     }
 
     public static function getContentById($content_id){
-        $select = "image_name,content_link,content_detail,user_favorite.id as favo";
+        $select = "image_name,content_link,content_detail,user_favorite.id as favo,company_id,tags.tag as tag";
 
         $contents = DB::table('contents')
         ->select(DB::raw($select))
         ->leftjoin('user_favorite','contents.id','=','user_favorite.content_id')
+        ->leftjoin('tags','contents.id', '=', 'tags.content_id')
         ->where('contents.id','=',$content_id)
         ->first();
 
@@ -123,5 +124,23 @@ class content extends Model
                     ->select('tag')->distinct()
                     ->get();
         return $tags;
+    }
+
+    public static function getMyContents($user_id){
+        $contents = DB::table('contents')
+                        ->select('contents.image_name','tags.tag','contents.id')
+                        ->leftjoin('tags','contents.id', '=', 'tags.content_id')
+                        ->where('contents.company_id',$user_id)
+                        ->get();
+        return $contents;
+    }
+
+    public static function updateContent($content_id,$data,$tag){
+        DB::table('contents')
+                ->where('id', $content_id)
+                ->update($data);
+        DB::table('tags')
+                ->where('content_id',$content_id)
+                ->update(["tag" => $tag]);
     }
 }

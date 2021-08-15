@@ -25,3 +25,5 @@ Route::post('/home/getSearch', 'api\homeApiController@getSearch');
 Route::post('/home/getFavorite', 'api\homeApiController@getFavorite');
 
 Route::post('/home/getTags', 'api\homeApiController@getTags');
+
+Route::post('/home/getMyContents', 'api\homeApiController@getMyContents');
