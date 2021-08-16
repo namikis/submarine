@@ -94,4 +94,16 @@ class contentController extends Controller
 
         return redirect("/account");
     }
+
+    public function content_delete(Request $request){
+        $loginInfo = session('loginInfo');
+        $content_id = $request->id;
+        $company_id = content::getCompany($content_id)->company_id;
+        if(!isset($loginInfo) || $loginInfo['user_id'] != $company_id){
+            return redirect('/signIn');
+        }
+        content::deleteContent($content_id);
+
+        return redirect("/account");
+    }
 }

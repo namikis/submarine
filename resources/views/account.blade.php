@@ -1,34 +1,36 @@
-@include('parts.modal')
-
 @extends('layouts./header')
 
 
 @section('content')
 
     <div class="bread">{{ $bread }}</div>
-    <div class="container">
-        <div class="whole_account_wrapper">
-            <h4>ユーザー情報</h4>
-                <div class="account_wrapper">
-                    <table>
-                        <tr><th>name:</th><td>{{$loginInfo['user_name']}}</td></tr>
-                        <tr><th>e-mail:</th><td>{{$loginInfo['email']}}</td></tr>
-                    </table>
-                    <div class="edit">
-                        <a href="/account_update">変更</a>
-                        <a href="#" class="account_delete_button">削除</a>
+    <div id="app">
+        <div class="container">
+            <div class="whole_account_wrapper">
+                <h4>ユーザー情報</h4>
+                    <div class="account_wrapper">
+                        <table>
+                            <tr><th>name:</th><td>{{$loginInfo['user_name']}}</td></tr>
+                            <tr><th>e-mail:</th><td>{{$loginInfo['email']}}</td></tr>
+                        </table>
+                        <div class="edit">
+                            <div><a href="/account_update" class="account_button">変更</a></div>
+                            <modal
+                                modal_mode = "{{ json_encode('account_del') }}"
+                            />
+                        </div>
                     </div>
-                </div>
+            </div>
         </div>
-    </div>
-    <div class="my_contents_wrapper">
-        <p>投稿一覧</p>
-        <div id="app">
-            <list
-                login_info = "{{ json_encode($loginInfo) }}"
-                Bread = "{{ json_encode($bread) }}"
-                Keywords = "{{ json_encode('') }}"
-            />
+        <div class="my_contents_wrapper">
+            <p>投稿一覧</p>
+            <div>
+                <list
+                    login_info = "{{ json_encode($loginInfo) }}"
+                    Bread = "{{ json_encode($bread) }}"
+                    Keywords = "{{ json_encode('') }}"
+                />
+            </div>
         </div>
     </div>
 @endsection
@@ -55,7 +57,7 @@
         margin-top:50px;
     }
 
-    .edit a{
+    .account_button{
         background-color:black;
         color:white;
         padding:5px;
@@ -68,5 +70,10 @@
 
     .whole_account_wrapper{
         padding:45px;
+    }
+
+    .edit{
+        display:flex;
+        justify-content:center;
     }
 </style>

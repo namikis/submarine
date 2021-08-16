@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Users;
+use App\Models\content;
 
 class homeController extends Controller
 {
@@ -90,6 +91,7 @@ class homeController extends Controller
             return redirect('/signIn');
         }
 
+        content::deleteContentsById($loginInfo['user_id']);
         Users::deleteData($loginInfo);
 
         $request->session()->invalidate();

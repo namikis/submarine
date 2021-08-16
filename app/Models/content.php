@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
+use App\Logic\contentLogic;
+
 class content extends Model
 {
     protected $table = 'contents';
@@ -142,5 +144,33 @@ class content extends Model
         DB::table('tags')
                 ->where('content_id',$content_id)
                 ->update(["tag" => $tag]);
+    }
+
+    public static function getCompany($content_id){
+        return DB::table('contents')
+                ->select('company_id')
+                ->where('id',$content_id)
+                ->first();
+    }
+
+    public static function deleteContent($content_id){
+        //delete image file
+        $image_name = DB::table('contents')
+                            ->select('image_name')->where('id', $content_id)->first()->image_name;
+        contentLogic::deleteImage($image_name);
+        
+        DB::table('contents')->where('id', $content_id)->delete();
+        DB::table('tags')->where('content_id',$content_id)->delete();
+    }
+
+    public static function deleteContentsById($company_id){
+        //delete all images with the account
+        $contents = DB::table('contents')
+                        ->select('id','image_name')->where('company_id', $company_id)->get();
+        foreach($contents as $content){
+            contentLogic::deleteImage($content->image_name);
+            DB::table('tags')->where('content_id',$content->id)->delete();
+        }
+        DB::table('contents')->where('company_id', $company_id)->delete();
     }
 }

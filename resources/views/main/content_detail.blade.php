@@ -20,10 +20,16 @@
                 @endif
                 </div>
                 <div class="content_menu_wrapper">
-                    <div class="content_edit_wrapper">
+                    <div class="content_edit_wrapper" id="app">
                         @if($loginInfo['user_id'] == $contents->company_id)
                             <div class="content_edit"><a href="{{ '/content/edit?id=' . $contents->id }}" class="button">edit</a></div>
-                            <div class="content_delete"><a href="/content/delete" class="button">delete</a></div>
+                            <div class="content_delete">
+                                <modal
+                                    modal_mode = "{{ json_encode('content_del') }}"
+                                    content_id = "{{ json_encode($contents->id) }}"
+                                />
+                            </div>
+                            
                         @endif
                     </div>
                     <div class="content_favorite_wrapper" id="app">

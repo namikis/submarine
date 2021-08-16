@@ -21,7 +21,7 @@ Route::get('/intro','homeController@intro');
 Route::get('/account','homeController@account');
 Route::get('/account_update','homeController@account_update');
 Route::post('/account_update_done','homeController@account_update_done');
-Route::get('/account_delete_done','homeController@account_delete_done');
+Route::get('/account/delete','homeController@account_delete_done');
 
 Route::get('/signIn','loginController@signIn');
 Route::post('/login','loginController@user_login');
@@ -48,4 +48,5 @@ Route::post('/content/insert', 'contentController@insert');
 
 Route::get('/content/edit', 'contentController@content_edit');
 Route::post('/content/edit', 'contentController@content_edit_done');
+Route::get('/content/delete', 'contentController@content_delete');
 

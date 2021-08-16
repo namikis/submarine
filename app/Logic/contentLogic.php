@@ -41,4 +41,12 @@ class contentLogic extends Model
 
         return $time_file_name;
     }
+
+    public static function deleteImage($image_name){
+        $file_path = public_path('img/content') . "/" . $image_name;
+
+        if(file_exists($file_path)){
+            unlink($file_path);
+        }
+    }
 }
