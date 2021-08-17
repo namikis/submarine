@@ -79,7 +79,7 @@ class contentController extends Controller
         $this->validate($request,[
             'tag' => 'required',
             'link' => 'required',
-            'detail' => 'required|max:200',
+            'detail' => 'required|max:500',
         ]);
         $loginInfo = session('loginInfo');
         if(!isset($loginInfo)){

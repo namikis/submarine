@@ -19,7 +19,7 @@
             </transition>
         </div>
         <transition name="wave">
-            <div class="sea_wave" v-if="wave_show">
+            <div class="sea_wave" v-show="wave_show">
             </div>
         </transition>
     </div>

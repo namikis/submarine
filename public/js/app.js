@@ -38624,7 +38624,17 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("transition", { attrs: { name: "wave" } }, [
-        _vm.wave_show ? _c("div", { staticClass: "sea_wave" }) : _vm._e()
+        _c("div", {
+          directives: [
+            {
+              name: "show",
+              rawName: "v-show",
+              value: _vm.wave_show,
+              expression: "wave_show"
+            }
+          ],
+          staticClass: "sea_wave"
+        })
       ])
     ],
     1

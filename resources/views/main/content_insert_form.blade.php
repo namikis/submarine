@@ -92,20 +92,29 @@
                 </div>
                 <div class="tag_wrapper form_item">
                     <p>コンテンツのタグ（ジャンル）を入力してください。</p>
+                    @if($errors->has('tag'))
+                        <p class="error_message">{{ $errors->first('tag') }}</p>
+                    @endif
                     <div class="tag_form text">
                         <input type="text" name="tag" placeholder="「プログラミング」,「書籍」, etc..." value="{{ $contents->tag }}">
                     </div>
                 </div>
                 <div class="link_wrapper form_item">
                     <p>コンテンツのリンクを貼ってください。</p>
+                    @if($errors->has('link'))
+                        <p class="error_message">{{ $errors->first('link') }}</p>
+                    @endif
                     <div class="link_form text">
                         <input type="text" name="link" placeholder="URL" value="{{ $contents->content_link }}">
                     </div>
                 </div>
                 <div class="detail_wrapper form_item">
                     <p>コンテンツについて、詳しく説明してください。</p>
+                    @if($errors->has('detail'))
+                        <p class="error_message">{{ $errors->first('detail') }}</p>
+                    @endif
                     <div class="detail_form">
-                        <textarea name="detail" cols="60" rows="10" placeholder="max:200">{{ $contents->content_detail }}</textarea>
+                        <textarea name="detail" cols="60" rows="10" placeholder="max:500">{{ $contents->content_detail }}</textarea>
                     </div>
                 </div>
                 <div class="send_wrapper form_item">

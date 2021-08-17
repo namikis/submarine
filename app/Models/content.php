@@ -15,7 +15,7 @@ class content extends Model
     public static $rules = [
         'tag' => 'required',
         'link' => 'required',
-        'detail' => 'required|max:200',
+        'detail' => 'required|max:500',
         'image' => 'required|image|file'
     ];
 
