@@ -42,4 +42,14 @@ class Users extends Model
         ->where('id',$loginInfo['user_id'])
         ->delete();
     } 
+
+    public static function getPlusCount($user_id){
+        return DB::table('users')
+                ->select('plus_count')->where('id',$user_id)->first()->plus_count;
+    }
+
+    public static function updatePlusCount($user_id,$plus_count){
+        DB::table('users')
+            ->where('id',$user_id)->update(["plus_count" => $plus_count]);
+    }
 }

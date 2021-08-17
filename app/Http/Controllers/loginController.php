@@ -51,7 +51,7 @@ class loginController extends Controller
         // Auth::guard('users')->logout();
         $request->session()->invalidate();
 
-        return redirect('/');
+        return redirect('/home');
     }
 
     public function register(Request $request){

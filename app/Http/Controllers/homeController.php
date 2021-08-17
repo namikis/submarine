@@ -95,6 +95,6 @@ class homeController extends Controller
         Users::deleteData($loginInfo);
 
         $request->session()->invalidate();
-        return redirect('/');
+        return redirect('/home');
     }
 }

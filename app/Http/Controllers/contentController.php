@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\content;
-use App\Logic\contentLogic;
+use App\Logic\userLogic;
 
 class contentController extends Controller
 {
@@ -12,6 +12,11 @@ class contentController extends Controller
         $loginInfo = session('loginInfo');
         if(!isset($loginInfo)){
             return redirect('/signIn');
+        }
+        if(!(userLogic::calcPlusCount($loginInfo['user_id']))){
+            return view('approval_mail_form')
+                    ->with('loginInfo', $loginInfo)
+                    ->with('bread', 'approval-mail');
         }
         return view('main/content_insert_form')
                 ->with('loginInfo', $loginInfo)
@@ -105,5 +110,10 @@ class contentController extends Controller
         content::deleteContent($content_id);
 
         return redirect("/account");
+    }
+
+    public function approval(Request $request){
+        $remember = $request->token;
+        
     }
 }
