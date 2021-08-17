@@ -21,7 +21,7 @@
                 </div>
                 <div class="content_menu_wrapper">
                     <div class="content_edit_wrapper">
-                        @if($loginInfo['user_id'] == $contents->company_id)
+                        @if(isset($loginInfo) && $loginInfo['user_id'] == $contents->company_id)
                             <div class="content_edit"><a href="{{ '/content/edit?id=' . $contents->id }}" class="button">edit</a></div>
                             <div class="content_delete">
                                 <modal
