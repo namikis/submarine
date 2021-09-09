@@ -14,9 +14,8 @@ class userLogic extends Model
         $plus_count = Users::getPlusCount($user_id);
         if($plus_count <= 0){
             return false;
-        }else{
-            Users::updatePlusCount($user_id,$plus_count-1);
-            return true;
         }
+        
+        return true;
     }
 }

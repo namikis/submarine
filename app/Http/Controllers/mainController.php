@@ -48,6 +48,10 @@ class mainController extends Controller
         $contents = content::getContentById($content_id);
         $contents->id = $content_id;
 
+        if(file_exists(__DIR__ . "/../../../public/img/content/" . $contents->image_name) == false){
+            $contents->image_name = "deleted_image.png";
+        }
+
         return view('main.content_detail')
         ->with('loginInfo',$loginInfo)
         ->with('contents',$contents)

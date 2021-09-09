@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 use App\Logic\contentLogic;
+use App\Models\Users;
 
 class content extends Model
 {
@@ -119,6 +120,7 @@ class content extends Model
             "tag" => $tag
         );
         DB::table("tags")->insert($data2);
+        Users::updatePlusCount($data['company_id'], Users::getPlusCount($data['company_id']) - 1);
     }
 
     public static function getAllTags(){
