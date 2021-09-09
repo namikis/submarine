@@ -52,3 +52,5 @@ Route::get('/content/delete', 'contentController@content_delete');
 
 Route::post('/content/approval', 'mailSendController@sendApproMail');
 Route::get('/content/appro', 'contentController@approval');
+
+Route::get('/content/approval/done', 'contentController@approval_done');

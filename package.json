@@ -25,6 +25,7 @@
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
+        "fs": "0.0.1-security",
         "mysql": "^2.18.1",
         "require": "^2.4.20"
     }

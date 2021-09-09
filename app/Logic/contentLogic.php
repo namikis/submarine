@@ -4,6 +4,9 @@ namespace App\Logic;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\content;
+use App\Logic\mailLogic;
+use App\Models\Users;
+use App\Models\Appro;
 
 class contentLogic extends Model
 {
@@ -48,5 +51,15 @@ class contentLogic extends Model
         if(file_exists($file_path)){
             unlink($file_path);
         }
+    }
+
+    public static function cleanUp($user_id){
+        $plus_count = Users::getPlusCount($user_id) + 3;
+        Users::updatePlusCount($user_id,$plus_count);
+        // 返信メール送信
+        $appro = Appro::getAppById($user_id);
+        mailLogic::sendRepMail($appro->email,$appro->user_name,$plus_count);
+        //同一ユーザーのリクエストは一旦全て消す
+        Appro::deleteApp($user_id);
     }
 }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\content;
 use App\Logic\userLogic;
+use App\Models\Appro;
+use App\Logic\contentLogic;
 
 class contentController extends Controller
 {
@@ -114,6 +116,18 @@ class contentController extends Controller
 
     public function approval(Request $request){
         $remember = $request->token;
-        
+        $request_user_id = Appro::getIdByToken($remember);
+        return view('approval_form')
+                ->with('user_id',$request_user_id)
+                ->with('bread', 'approval');
+    }
+
+    public function approval_done(Request $request){
+        $user_id = $request->id;
+        contentLogic::cleanUp($user_id);
+        $done_message = "承認完了。";
+        return view('exe_done')
+                    ->with('bread','approval-done')
+                    ->with('done_message', $done_message);
     }
 }

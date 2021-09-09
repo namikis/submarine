@@ -10,7 +10,7 @@
             <div v-if="contents.length >= 1" class="contents">
                 <div v-for="content in contents" class="content" :key="content.id">
                     <div class="content_image">
-                        <a :href="'/content_detail?id='+content.id"><img :src="'/img/content/'+content.image_name"></a>
+                        <a :href="'/content_detail?id='+content.id"><img :src="'/img/content/'+content.image_name" @error="noImage"></a>
                     </div>
                     <div v-if="content.tag != null">
                         <span class="content_tag">{{content.tag}}</span>
@@ -82,6 +82,9 @@ export default {
             setTimeout(() => {
                 this.load_show = false
             },1000);
+        },
+        noImage(element){
+            element.target.src = "/img/content/deleted_image.png";
         }
     },
     created(){
@@ -101,6 +104,8 @@ export default {
             this.getMyContents();
             this.timeout();
         }
+
+        this.checkImage();
     },updated(){
 
     }

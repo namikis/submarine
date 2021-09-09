@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Mail;
 use App\Mail\MailSend;
 use App\Models\Appro;
+use App\Logic\mailLogic;
 
 class mailSendController extends Controller
 {
@@ -15,13 +16,14 @@ class mailSendController extends Controller
         if(!isset($loginInfo)){
             return redirect('/signIn');
         }
+
         $rep_email = $request->email;
-        $remember = substr(bin2hex(random_bytes(16)), 0, 16);
-        Appro::insertRequest($loginInfo['user_id'],$rep_email,$remember);
+        mailLogic::sendApproMail($rep_email);
+        $done_message = "リクエストを送信しました。返信メールが届くまでもうしばらくお待ちください。";
 
-        $root_email = "koudoldk@icloud.com";
-
-        Mail::to($root_email)->send(new MailSend($loginInfo['user_name'],$loginInfo['user_id'],$remember));
-        return redirect('/home');
+        return view('exe_done')
+                ->with('bread', 'request-sended')
+                ->with('loginInfo', $loginInfo)
+                ->with('done_message', $done_message);
     }
 }

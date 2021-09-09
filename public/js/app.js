@@ -2193,6 +2193,9 @@ __webpack_require__.r(__webpack_exports__);
       setTimeout(function () {
         _this5.load_show = false;
       }, 1000);
+    },
+    noImage: function noImage(element) {
+      element.target.src = "/img/content/deleted_image.png";
     }
   },
   created: function created() {
@@ -2212,6 +2215,8 @@ __webpack_require__.r(__webpack_exports__);
       this.getMyContents();
       this.timeout();
     }
+
+    this.checkImage();
   },
   updated: function updated() {}
 });
@@ -38705,7 +38710,8 @@ var render = function() {
                     { attrs: { href: "/content_detail?id=" + content.id } },
                     [
                       _c("img", {
-                        attrs: { src: "/img/content/" + content.image_name }
+                        attrs: { src: "/img/content/" + content.image_name },
+                        on: { error: _vm.noImage }
                       })
                     ]
                   )
