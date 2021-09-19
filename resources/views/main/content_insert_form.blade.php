@@ -1,3 +1,8 @@
+@if(app('env') != 'production')
+    <link rel="stylesheet" href="{{ asset('css/insert_contents.css') }}">
+@else
+    <link rel="stylesheet" href="{{ secure_asset('css/insert_contents.css') }}">
+@endif
 @extends('../layouts/header')
 @section('content')
     <div class="bread" id="bread">
@@ -126,47 +131,6 @@
     </div>
 @endsection
 
-<style>
-    .link_p{
-        overflow-wrap:break-word;
-    }
-
-    .form_wrapper{
-        width:60%;
-        margin:0 auto;
-        padding:20px 0;
-    }
-    .form_item{
-        margin:40px 0;
-    }
-
-    .text input{
-        width:60%;
-    }
-
-    .content_image{
-        width: 60%;
-        height:60%;
-    }
-
-    .content_image img, .pre_image{
-        max-height:400px;
-        max-width:60%;
-    }
-    
-    .img_form{
-        display:flex;
-    }
-
-    .send_wrapper h4{
-        margin:30px 0;
-    }
-
-    .detail_field{
-        border:1px solid black;
-        padding:5px;
-    }
-</style>
 
 <script>
     var bread = document.getElementById('bread').textContent;

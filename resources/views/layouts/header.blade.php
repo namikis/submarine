@@ -46,15 +46,15 @@
                 <p class="menu_title"><i class="fa fa-bars" aria-hidden="true"></i></p>
                 <div class="hidden_menu">
                 @if(isset($loginInfo)==false)
-                    <a href="/signIn" class="header-list">ログイン</a>
+                    <a href="/signIn" class="header-list">ログイン</a>            
                     <a href="/various" class="header-list">various</a>
                     <a href="/signUp" class="header-list">新規登録</a>
                 @else
-                    <a href="/account" class="header-list">Account</a>
-                    <a href="/content/form" class="header-list">Add contents</a>
-                    <a href="/favorite" class="header-list">favorite</a>
                     <a href="/intro" class="header-list">introduction</a>
                     <a href="/various" class="header-list">various</a>
+                    <a href="/favorite" class="header-list">favorite</a>
+                    <a href="/account" class="header-list">Account</a>
+                    <a href="/content/form" class="header-list">Add contents</a>
                     <a href="/logout" class="header-list">ログアウト</a>
                 @endif
                 </div>

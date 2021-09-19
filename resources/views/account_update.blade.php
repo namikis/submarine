@@ -2,7 +2,6 @@
 @section('content')
     <div class="bread">account > edit</div>
     <div class="container">
-        <h4>ユーザー情報の変更</h4>
         <form action="/account_update_done" method="post">
         {{ csrf_field() }}
         <div class="input_wrapper">
