@@ -37,11 +37,11 @@
             <div class="header_menu">
                 <form action="/search" method="get">
                     <input type="text" placeholder="検索" name="keyword">
-                    <span class="search_button"><input type="submit" value="go"></span>
+                    <span class="search_button"><input type="submit" value="&#xf002;"></span>
                 </form>
             </div>
-            <div class="header_menu">
-                <p class="menu_title">Menu</p>
+            <div class="header_menu menu_head">
+                <p class="menu_title"><i class="fa fa-bars" aria-hidden="true"></i></p>
                 <div class="hidden_menu">
                 @if(isset($loginInfo)==false)
                     <a href="/signIn" class="header-list">ログイン</a>
@@ -67,16 +67,16 @@
 </html>
 
 <script>
-    var header = $('.header');
-    var headerHeight = header.outerHeight(true);
+    // var header = $('.header');
+    // var headerHeight = header.outerHeight(true);
 
-    $(window).on('scroll',function(){
-        $scrollTopDistance = $(window).scrollTop();
+    // $(window).on('scroll',function(){
+    //     $scrollTopDistance = $(window).scrollTop();
         
-        if($scrollTopDistance >= headerHeight){
-            header.addClass('header_scroll');
-        }else if($scrollTopDistance <= headerHeight){
-            header.removeClass('header_scroll');
-        }
-    });
+    //     if($scrollTopDistance >= headerHeight){
+    //         header.addClass('header_scroll');
+    //     }else if($scrollTopDistance <= headerHeight){
+    //         header.removeClass('header_scroll');
+    //     }
+    // });
 </script>

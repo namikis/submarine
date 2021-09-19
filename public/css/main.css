@@ -1,8 +1,11 @@
 a{
     text-decoration: none;
 }
+input[type=submit]{
+    font-family: FontAwesome;
+   }
 
-html,body,div,h1,h2,h3,h4,h5{
+html,body,div,h1,h2,h3,h4,h5, form,p{
     padding:0;
     margin:0;
 }
@@ -29,7 +32,7 @@ html,body,div,h1,h2,h3,h4,h5{
 
 .button{
     padding:5px 20px;
-    width:15%;
+    /* width:15%; */
     color:white;
     background: linear-gradient(to top, #0000d2, #5bcaff);
     border-radius:20px;
@@ -77,6 +80,11 @@ html,body,div,h1,h2,h3,h4,h5{
     margin:0 30px;
 }
 
+.menu_head{
+    display: flex;
+    align-items: center;
+}
+
 .header_menu p a{
     color:#F8A900;
 }
@@ -94,21 +102,33 @@ html,body,div,h1,h2,h3,h4,h5{
 }
 
 .header-list{
-    background-color:white;
     padding:5px;
     display:block;
-    border:1px solid black;
-    color:blue;
+    border:1px solid white;
+    color:white;
 }
 
 .hidden_menu{
     position:absolute;
-    top:70px;
-    right: -55%;
+    top: 170%;
+    right: -50px;
     width: 150px;
     text-align: center;
+    background: linear-gradient(to top, #0000d2, #5bcaff);
     display:none;
 }
+
+
+.menu_head:before{
+    content:"tes";
+    height: 100%;
+    width: 55px;
+}
+
+.menu_title:hover + .hidden_menu, .hidden_menu:hover{
+    display: block;
+}
+
 
 .search_button{
     margin:-10px;
@@ -116,20 +136,26 @@ html,body,div,h1,h2,h3,h4,h5{
 
 .menu_title{
     font-size:20px;
-    background-color:white;
     color:black;
-    margin-top:10px;
-    padding:5px 10px;
-    border-radius:20px;
+    padding: 15px 20px;
     cursor:pointer;
+    background:#F8A900;
+    margin-top:10px;
+    position: absolute;
+    top: -21px;
+}
+
+.fa-bars{
+    color:white;
+}
+
+.menu-wrapper{
+    display: flex;
+    align-items: center;
 }
 
 .loginMessage{
     color:white;
-}
-
-.header_scroll{
-    height:50px;
 }
 
 .d_modal{
@@ -170,4 +196,33 @@ html,body,div,h1,h2,h3,h4,h5{
 .modal_button{
     color:white !important;
     cursor: pointer;
+}
+
+
+
+@media screen and (max-width: 480px) {
+    .header_menu{
+        display: none;
+    }
+
+    .menu_head{
+        display: contents !important;
+    }
+
+    .button{
+        width:unset;
+    }
+
+    .menu_title{
+        position:static;
+    }
+
+    .menu_head:before{
+        display: none;
+    }
+
+    .hidden_menu{
+        top:100%;
+        right: 0;
+    }
 }

@@ -1,8 +1,11 @@
 $(function(){
+
     $('.menu_title').click(function(){
+        var width = $(window).width();
+
         if($('.hidden_menu').hasClass('show')){
             $('.hidden_menu').fadeOut().removeClass('show');
-        }else{
+        }else if(width < 480){
             $('.hidden_menu').fadeIn().addClass('show');        
         }
     });
