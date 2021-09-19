@@ -21,23 +21,3 @@
         </form>
     </div>
 @endsection
-
-<style>
-
-    .input_wrapper{
-        margin-top:80px;
-        text-align:center;
-    }
-
-    .form_data{
-        display:block;
-        width:30%;
-        margin: 20px auto;
-    }
-
-    .submit_data{
-        width:80px;
-        display:block;
-        margin:0 auto;
-    }
-</style>

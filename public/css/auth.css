@@ -1,0 +1,31 @@
+.login_wrapper{
+    text-align:center;
+    padding:50px 0;
+}
+
+.new_wrapper{
+    text-align:center;
+    padding:50px 0;
+}
+
+.input_form{
+    margin:10px 0;
+}
+
+.input_form input{
+    width:25%;
+}
+
+@media screen and (max-width:480px) {
+    .input_form input{
+        width:90%;
+    }
+
+    .register_button{
+        margin-top:25px;
+    }
+
+    .login_button{
+        padding:30px 0;
+    }
+}

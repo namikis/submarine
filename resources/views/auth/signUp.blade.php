@@ -1,3 +1,8 @@
+@if(app('env') != 'production')
+    <link rel="stylesheet" href="{{ asset('css/auth.css') }}">
+@else
+    <link rel="stylesheet" href="{{ secure_asset('css/auth.css') }}">
+@endif
 @extends('layouts./header')
 @section('content')
     <div class="bread">新規登録</div>
@@ -31,15 +36,9 @@
                             <input type="password" name="pass" placeholder="パスワード" value="{{old('pass')}}">
                         </div>
                         
-                        <p><input type="submit" value="登録"></p>
+                        <p class="register_button"><input type="submit" value="登録"></p>
                     </form>
         </div>
     </div>
 @endsection
 
-<style>
-    .new_wrapper{
-        text-align:center;
-        padding:50px 0;
-    }
-</style>

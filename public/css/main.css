@@ -45,13 +45,7 @@ html,body,div,h1,h2,h3,h4,h5, form,p{
     opacity:1.0;
 }
 
-.input_form{
-    margin:10px 0;
-}
 
-.input_form input{
-    width:25%;
-}
 
 .sea_wrapper{
     background-image:url('../img/natural_ocean.png');
@@ -198,7 +192,22 @@ html,body,div,h1,h2,h3,h4,h5, form,p{
     cursor: pointer;
 }
 
+.input_wrapper{
+    margin-top:80px;
+    text-align:center;
+}
 
+.form_data{
+    display:block;
+    width:30%;
+    margin: 20px auto;
+}
+
+.submit_data{
+    width:80px;
+    display:block;
+    margin:0 auto;
+}
 
 @media screen and (max-width: 480px) {
     .header_menu{
@@ -224,5 +233,22 @@ html,body,div,h1,h2,h3,h4,h5, form,p{
     .hidden_menu{
         top:100%;
         right: 0;
+    }
+
+    .container, .bread{
+        width:95%;
+        margin:auto;
+    }
+
+    .bread{
+        padding-top:100px;
+    }
+
+    .form_data{
+        width:90%;
+    }
+
+    .input_wrapper{
+        margin:0;
     }
 }

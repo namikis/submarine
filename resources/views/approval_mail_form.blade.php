@@ -1,3 +1,8 @@
+@if(app('env') != 'production')
+    <link rel="stylesheet" href="{{ asset('css/approval.css') }}">
+@else
+    <link rel="stylesheet" href="{{ secure_asset('css/approval.css') }}">
+@endif
 @extends('./layouts/header')
 @section('content')
     <div class="bread">{{ $bread }}</div>
@@ -14,24 +19,3 @@
         </div>
     </div>
 @endsection
-
-<style>
-    .mail_form_wrapper{
-        width:60%;
-        margin:0px auto;
-        padding:30px 0;
-    }
-    .email_wrapper{
-        margin:20px;
-    }
-
-    .form_message{
-        font-size:22px;
-    }
-    .form_message span{
-        font-weight:bold;
-    }
-    .email_input{
-        width:50%;
-    }
-</style>

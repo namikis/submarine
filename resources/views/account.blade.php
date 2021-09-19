@@ -1,13 +1,16 @@
+@if(app('env') != 'production')
+    <link rel="stylesheet" href="{{ asset('css/account.css') }}">
+@else
+    <link rel="stylesheet" href="{{ secure_asset('css/account.css') }}">
+@endif
 @extends('layouts./header')
-
-
 @section('content')
 
     <div class="bread">{{ $bread }}</div>
     <div id="app">
         <div class="container">
             <div class="whole_account_wrapper">
-                <h4>ユーザー情報</h4>
+                <h4 class="user_info">ユーザー情報</h4>
                     <div class="account_wrapper">
                         <table>
                             <tr><th>name:</th><td>{{$loginInfo['user_name']}}</td></tr>
@@ -34,46 +37,3 @@
         </div>
     </div>
 @endsection
-
-<style>
-    .my_contents_wrapper p{
-        margin-top:50px;
-        font-size:26px;
-        text-align:center;
-    }
-    table{
-        margin:0 auto;
-    }
-
-    table tr th{
-        font-size:25px;
-    }
-    table tr td{
-        font-size:20px;
-    }
-
-    .edit{
-        text-align:center;
-        margin-top:50px;
-    }
-
-    .account_button{
-        background-color:black;
-        color:white;
-        padding:5px;
-        margin:0 10px;
-    }
-
-    .account_wrapper{
-        margin-top:50px;
-    }
-
-    .whole_account_wrapper{
-        padding:45px;
-    }
-
-    .edit{
-        display:flex;
-        justify-content:center;
-    }
-</style>

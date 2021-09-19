@@ -86,3 +86,10 @@
     .content_edit a,.content_delete a{
         font-size:16px;
     }
+
+    @media screen and (max-width:480px) {
+        .detail_image,.detail_pr, .detail_link, .content_menu_wrapper{
+            width:100%;
+        }
+
+    }

@@ -1,0 +1,58 @@
+.my_contents_wrapper p{
+    margin-top:50px;
+    font-size:26px;
+    text-align:center;
+}
+table{
+    margin:0 auto;
+}
+
+table tr th{
+    font-size:25px;
+}
+table tr td{
+    font-size:20px;
+}
+
+.edit{
+    text-align:center;
+    margin-top:50px;
+}
+
+.account_button{
+    background-color:black;
+    color:white;
+    padding:5px;
+    margin:0 10px;
+}
+
+.account_wrapper{
+    margin-top:50px;
+}
+
+.whole_account_wrapper{
+    padding:45px;
+}
+
+.edit{
+    display:flex;
+    justify-content:center;
+}
+
+@media screen and (max-width:480px) {
+    .whole_account_wrapper{
+        padding:10px;
+    }
+
+    .account_wrapper{
+        margin:0;
+    }
+
+    .user_info{
+        margin:10px;
+    }
+
+    .edit{
+        margin:20px;
+    }
+}

@@ -11,10 +11,12 @@
     @if(app('env') != 'production')
         <link rel="icon" href="{{ asset('/img/submarine_ic.png') }}">
         <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/list.css') }}">
         <script src="{{asset('js/main.js')}}"></script>
     @else
         <link rel="icon" href="{{ secure_asset('/img/submarine_ic.png') }}">
         <link rel="stylesheet" href="{{ secure_asset('css/main.css') }}">
+        <link rel="stylesheet" href="{{ secure_asset('css/list.css') }}">
         <script src="{{secure_asset('js/main.js')}}"></script>
     @endif
 
