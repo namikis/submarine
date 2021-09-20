@@ -2195,7 +2195,7 @@ __webpack_require__.r(__webpack_exports__);
       }, 1000);
     },
     noImage: function noImage(element) {
-      element.target.src = "/img/content/deleted_image.png";
+      element.target.src = "/img/content/deleted_image.jpg";
     }
   },
   created: function created() {

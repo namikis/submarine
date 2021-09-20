@@ -49,7 +49,7 @@ class mainController extends Controller
         $contents->id = $content_id;
 
         if(file_exists(__DIR__ . "/../../../public/img/content/" . $contents->image_name) == false){
-            $contents->image_name = "deleted_image.png";
+            $contents->image_name = "deleted_image.jpg";
         }
 
         return view('main.content_detail')

@@ -84,7 +84,7 @@ export default {
             },1000);
         },
         noImage(element){
-            element.target.src = "/img/content/deleted_image.png";
+            element.target.src = "/img/content/deleted_image.jpg";
         }
     },
     created(){
