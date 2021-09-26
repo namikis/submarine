@@ -28,8 +28,31 @@ class homeApiController extends Controller
         return json_encode($data);
     }
 
+    public function getAutoVarious(){
+        $contents = content::getVarious(1);
+        $data['contents'] = $contents;
+        return json_encode($data);
+    }
+
+    public function getAutoSearch(Request $request){
+        $keyword = $request->keyword;
+        $data['contents'] = contentLogic::getContents($keyword, 1);
+        return json_encode($data);
+    }
+
+    public function getAutoFavorite(Request $request){
+        $user_id = $request->user_id;
+        $data['contents'] = content::getFavoriteById($user_id);
+        return json_encode($data);
+    }
+
     public function getTags(){
         $data['tags'] = content::getAllTags();
+        return json_encode($data);
+    }
+
+    public function getAutoTags(){
+        $data['tags'] = content::getAllTags(1);
         return json_encode($data);
     }
 

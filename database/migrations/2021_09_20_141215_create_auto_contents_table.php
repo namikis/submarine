@@ -22,8 +22,6 @@ class CreateAutoContentsTable extends Migration
             $table->text('content_link');
             $table->text('from_url');
             $table->timestamps();
-            $table->unique('image_url');
-            $table->unique('from_url');
         });
     }
 

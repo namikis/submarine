@@ -20,44 +20,74 @@ class content extends Model
         'image' => 'required|image|file'
     ];
 
-    public static function getVarious(){
+    public static function getVarious($mode=null){
         //ランダムに9件取得
-        $select ="contents.image_name,tags.tag,contents.id";
+        
+        if($mode == 1){
+            $contents = DB::table('auto_contents')
+            ->select('auto_contents.image_url', 'auto_contents.id', 'auto_tag.tag')
+            ->leftjoin('auto_tag','auto_contents.id', '=', 'auto_tag.content_id')
+            ->inRandomOrder()
+            ->limit(6)->get();
+        }else{
+            $select ="contents.image_name,tags.tag,contents.id";
 
         $contents = DB::table('contents')
             ->select(DB::raw($select))
             ->leftjoin('tags','contents.id', '=', 'tags.content_id')
             ->inRandomOrder()
-            ->limit(9)->get();
+            ->limit(6)->get();
+        }
         
         return $contents;
     } 
 
-    public static function getSearch($data){
-        $select="contents.image_name,tags.tag,contents.id";
+    public static function getSearch($data, $mode){
+        if($mode==1){
+            $select="contents.image_name,tags.tag,contents.id";
 
-        $contents = DB::table('contents')
-        ->select(DB::raw($select))
-        ->leftjoin('tags','contents.id', '=', 'tags.content_id');
+            $contents = DB::table('auto_contents')
+            ->select('auto_contents.image_url', 'auto_tag.tag', 'auto_contents.id')
+            ->leftjoin('auto_tag','auto_contents.id', '=', 'auto_tag.content_id');
 
-        foreach($data as $key){
-            $contents = $contents->where('tags.tag','like','%' . $key . '%');
+            foreach($data as $key){
+                $contents = $contents->where('auto_tag.tag','like','%' . $key . '%');
+            }
+        }else{
+            $select="contents.image_name,tags.tag,contents.id";
+
+            $contents = DB::table('contents')
+            ->select(DB::raw($select))
+            ->leftjoin('tags','contents.id', '=', 'tags.content_id');
+
+            foreach($data as $key){
+                $contents = $contents->where('tags.tag','like','%' . $key . '%');
+            }
+            
         }
-        
         $contents = $contents->distinct()->get();
 
         return $contents;
     }
 
-    public static function getContentById($content_id){
-        $select = "image_name,content_link,content_detail,user_favorite.id as favo,company_id,tags.tag as tag";
+    public static function getContentById($content_id, $mode=null){
+        if($mode==1){
+            $contents = DB::table('auto_contents')
+            ->select('image_url', 'content_link', 'content_detail', 'auto_user_favorite.id as favo', 'company_id', 'auto_tag.tag as tag')
+            ->leftjoin('auto_user_favorite','auto_contents.id','=','auto_user_favorite.content_id')
+            ->leftjoin('auto_tag','auto_contents.id', '=', 'auto_tag.content_id')
+            ->where('auto_contents.id','=',$content_id)
+            ->first();
+        }else{
+            $select = "image_name,content_link,content_detail,user_favorite.id as favo,company_id,tags.tag as tag";
 
-        $contents = DB::table('contents')
-        ->select(DB::raw($select))
-        ->leftjoin('user_favorite','contents.id','=','user_favorite.content_id')
-        ->leftjoin('tags','contents.id', '=', 'tags.content_id')
-        ->where('contents.id','=',$content_id)
-        ->first();
+            $contents = DB::table('contents')
+            ->select(DB::raw($select))
+            ->leftjoin('user_favorite','contents.id','=','user_favorite.content_id')
+            ->leftjoin('tags','contents.id', '=', 'tags.content_id')
+            ->where('contents.id','=',$content_id)
+            ->first();
+        }
 
         return $contents;
     }
@@ -123,10 +153,16 @@ class content extends Model
         Users::updatePlusCount($data['company_id'], Users::getPlusCount($data['company_id']) - 1);
     }
 
-    public static function getAllTags(){
-        $tags = DB::table('tags')
+    public static function getAllTags($mode=null){
+        if($mode==1){
+            $tags = DB::table('auto_tag')
                     ->select('tag')->distinct()
                     ->get();
+        }else{
+            $tags = DB::table('tags')
+                    ->select('tag')->distinct()
+                    ->get();
+        }
         return $tags;
     }
 

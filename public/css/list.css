@@ -49,6 +49,10 @@
     position:relative;
 }
 
+.auto_contents{
+    background-color: lightblue;
+}
+
 @media screen and (max-width:480px) {
     .list_wrapper, .contents_wrapper{
         padding:20px 0;

@@ -57,16 +57,12 @@ def main():
     url = scraping(urls['ws'], start_regs['ws'])['next_url']
 
 
-    all_contents = []
-    
     for i in range(5):
         content = scraping(url, regs['ws'])
         content['url'] = url
-        all_contents.append(content)
+        print(content)
         url = content['next_url']
-        time.sleep(2)
-
-    print(all_contents)
+        time.sleep(1)
 
 
     #image_url = "https://websv.info/wp-content/uploads/2021/02/1-1.jpg"

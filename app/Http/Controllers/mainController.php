@@ -45,13 +45,15 @@ class mainController extends Controller
         $loginInfo = session('loginInfo');
         $content_id = $request->id;
 
-        $contents = content::getContentById($content_id);
-        $contents->id = $content_id;
-
-        if(file_exists(__DIR__ . "/../../../public/img/content/" . $contents->image_name) == false){
-            $contents->image_name = "deleted_image.jpg";
+        if($request->auto == 1){
+            $contents = content::getContentById($content_id, 1);
+        }else{
+            $contents = content::getContentById($content_id);
+            if(file_exists(__DIR__ . "/../../../public/img/content/" . $contents->image_name) == false){
+                $contents->image_name = "deleted_image.jpg";
+            }
         }
-
+        $contents->id = $content_id;
         return view('main.content_detail')
         ->with('loginInfo',$loginInfo)
         ->with('contents',$contents)

@@ -15,6 +15,9 @@
                 <div class="tag button" v-for="tag in tags" @click="goSearch(tag.tag)">
                     {{ tag.tag }}
                 </div>
+                <div class="tag button" v-for="autoTag in autoTags" @click="goSearch(autoTag.tag)">
+                    {{ autoTag.tag }}
+                </div>
             </div>
             </transition>
         </div>
@@ -32,6 +35,7 @@ export default {
     data(){
         return{
             tags:{},
+            autoTags:{},
             query:"",
             selectTag:"",
             tag_show:false,
@@ -50,6 +54,13 @@ export default {
                         this.tags = res.data.tags;
                     });
         },
+        getAutoTags(){
+            var params = new URLSearchParams();
+            axios.post('api/home/getAutoTags',params)
+                    .then(res =>{
+                        this.autoTags = res.data.tags;
+                    });
+        },
         goSearch(tag){
             this.query = tag;
         },
@@ -63,6 +74,7 @@ export default {
     },
     created(){
         this.getTags();
+        this.getAutoTags();
     }
 }
 </script>

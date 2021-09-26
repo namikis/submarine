@@ -13,10 +13,14 @@
         <div class="container" id="app">
             <div class="detail_wrapper">
                 <div class="detail_image">
-                @if(app('env') != 'production')
-                    <img src="{{asset('/img/content/'.$contents->image_name)}}">
+                @if(isset($contents->image_name))
+                    @if(app('env') != 'production')
+                        <img src="{{asset('/img/content/'.$contents->image_name)}}">
+                    @else
+                        <img src="{{  secure_asset('/img/content/'.$contents->image_name)  }}">
+                    @endif
                 @else
-                    <img src="{{  secure_asset('/img/content/'.$contents->image_name)  }}">
+                    <img src="{{ $contents->image_url }}" alt="">
                 @endif
                 </div>
                 <div class="content_menu_wrapper">

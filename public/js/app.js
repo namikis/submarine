@@ -2053,12 +2053,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: [],
   data: function data() {
     return {
       tags: {},
+      autoTags: {},
       query: "",
       selectTag: "",
       tag_show: false,
@@ -2076,6 +2080,14 @@ __webpack_require__.r(__webpack_exports__);
         _this.tags = res.data.tags;
       });
     },
+    getAutoTags: function getAutoTags() {
+      var _this2 = this;
+
+      var params = new URLSearchParams();
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/home/getAutoTags', params).then(function (res) {
+        _this2.autoTags = res.data.tags;
+      });
+    },
     goSearch: function goSearch(tag) {
       this.query = tag;
     },
@@ -2089,6 +2101,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.getTags();
+    this.getAutoTags();
   }
 });
 
@@ -2134,12 +2147,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['login_info', 'Bread', 'Keywords'],
   data: function data() {
     return {
       contents: {},
+      autoContents: {},
       load_show: true
     };
   },
@@ -2157,41 +2184,68 @@ __webpack_require__.r(__webpack_exports__);
         _this.contents = res.data.contents;
       });
     },
-    getSearch: function getSearch() {
+    getAutoVarious: function getAutoVarious() {
       var _this2 = this;
+
+      var params = new URLSearchParams();
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("api/home/getAutoVarious", params).then(function (res) {
+        _this2.autoContents = res.data.contents;
+      });
+    },
+    getSearch: function getSearch() {
+      var _this3 = this;
 
       var params = new URLSearchParams();
       params.append('keyword', this.keywords);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("api/home/getSearch", params).then(function (res) {
-        _this2.contents = res.data.contents;
+        _this3.contents = res.data.contents;
+      });
+    },
+    getAutoSearch: function getAutoSearch() {
+      var _this4 = this;
+
+      var params = new URLSearchParams();
+      params.append('keyword', this.keywords);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("api/home/getAutoSearch", params).then(function (res) {
+        _this4.autoContents = res.data.contents;
       });
     },
     getFavorite: function getFavorite() {
-      var _this3 = this;
+      var _this5 = this;
 
       var params = new URLSearchParams();
       params.append('user_id', this.loginInfo['user_id']);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/home/getFavorite', params).then(function (res) {
-        _this3.contents = res.data.contents;
+        _this5.contents = res.data.contents;
+      });
+    },
+    getAutoFavorite: function getAutoFavorite() {
+      var _this6 = this;
+
+      var params = new URLSearchParams();
+      params.append('user_id', this.loginInfo['user_id']);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/home/getAutoFavorite', params).then(function (res) {
+        _this6.autoContents = res.data.contents;
       });
     },
     getMyContents: function getMyContents() {
-      var _this4 = this;
+      var _this7 = this;
 
       var params = new URLSearchParams();
       params.append('user_id', this.loginInfo['user_id']);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/home/getMyContents', params).then(function (res) {
-        _this4.contents = res.data.contents;
+        _this7.contents = res.data.contents;
       });
     },
     reload: function reload() {
       this.getVarious();
+      this.getAutoVarious();
     },
     timeout: function timeout() {
-      var _this5 = this;
+      var _this8 = this;
 
       setTimeout(function () {
-        _this5.load_show = false;
+        _this8.load_show = false;
       }, 1000);
     },
     noImage: function noImage(element) {
@@ -2205,11 +2259,15 @@ __webpack_require__.r(__webpack_exports__);
 
     if (this.bread == 'various') {
       this.getVarious();
+      this.getAutoVarious();
+      this.timeout();
     } else if (this.bread == 'search') {
       this.getSearch();
+      this.getAutoSearch();
       this.timeout();
     } else if (this.bread == 'favorite') {
       this.getFavorite();
+      this.getAutoFavorite();
       this.timeout();
     } else if (this.bread == 'account') {
       this.getMyContents();
@@ -38474,27 +38532,50 @@ var render = function() {
               ? _c(
                   "div",
                   { staticClass: "tags" },
-                  _vm._l(_vm.tags, function(tag) {
-                    return _c(
-                      "div",
-                      {
-                        staticClass: "tag button",
-                        on: {
-                          click: function($event) {
-                            return _vm.goSearch(tag.tag)
+                  [
+                    _vm._l(_vm.tags, function(tag) {
+                      return _c(
+                        "div",
+                        {
+                          staticClass: "tag button",
+                          on: {
+                            click: function($event) {
+                              return _vm.goSearch(tag.tag)
+                            }
                           }
-                        }
-                      },
-                      [
-                        _vm._v(
-                          "\n                " +
-                            _vm._s(tag.tag) +
-                            "\n            "
-                        )
-                      ]
-                    )
-                  }),
-                  0
+                        },
+                        [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(tag.tag) +
+                              "\n            "
+                          )
+                        ]
+                      )
+                    }),
+                    _vm._v(" "),
+                    _vm._l(_vm.autoTags, function(autoTag) {
+                      return _c(
+                        "div",
+                        {
+                          staticClass: "tag button",
+                          on: {
+                            click: function($event) {
+                              return _vm.goSearch(autoTag.tag)
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                " +
+                              _vm._s(autoTag.tag) +
+                              "\n            "
+                          )
+                        ]
+                      )
+                    })
+                  ],
+                  2
                 )
               : _vm._e()
           ])
@@ -38611,10 +38692,54 @@ var render = function() {
                 ])
               : _vm._e(),
             _vm._v(" "),
-            _vm.bread != "account"
+            _vm.bread != "account" && _vm.autoContents.length < 1
               ? _c("p", [_vm._v("該当するものがありません。")])
               : _vm._e()
-          ])
+          ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "auto_contents" }, [
+        _c("h1", [_vm._v("auto get contents")]),
+        _vm._v(" "),
+        _vm.autoContents.length >= 1
+          ? _c(
+              "div",
+              { staticClass: "contents" },
+              _vm._l(_vm.autoContents, function(autoContent) {
+                return _c(
+                  "div",
+                  { key: autoContent.id, staticClass: "content" },
+                  [
+                    _c("div", { staticClass: "content_image" }, [
+                      _c(
+                        "a",
+                        {
+                          attrs: {
+                            href: "/content_detail?auto=1&id=" + autoContent.id
+                          }
+                        },
+                        [
+                          _c("img", {
+                            attrs: { src: autoContent.image_url },
+                            on: { error: _vm.noImage }
+                          })
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    autoContent.tag != null
+                      ? _c("div", [
+                          _c("span", { staticClass: "content_tag" }, [
+                            _vm._v(_vm._s(autoContent.tag))
+                          ])
+                        ])
+                      : _vm._e()
+                  ]
+                )
+              }),
+              0
+            )
+          : _vm._e()
+      ])
     ])
   ])
 }

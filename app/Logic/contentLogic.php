@@ -10,7 +10,7 @@ use App\Models\Appro;
 
 class contentLogic extends Model
 {
-    public static function getContents($keyword){
+    public static function getContents($keyword, $mode=null){
         $contents = array();
 
         if($keyword == ''){
@@ -22,7 +22,7 @@ class contentLogic extends Model
         foreach($searchArr as $search){
             $searchArr2 = array_merge($searchArr2,explode(" ",$search));
         }
-        $contents = content::getSearch($searchArr2);
+        $contents = content::getSearch($searchArr2, $mode);
 
         return $contents;
 

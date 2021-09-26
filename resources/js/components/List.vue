@@ -21,7 +21,20 @@
                 <div class="load_wrapper" v-if="load_show == true">
                     <i class="fa fa-spinner fa-pulse fa-3x fa-fw loading"></i>
                 </div>
-                <p v-if="bread!='account'">該当するものがありません。</p>
+                <p v-if="bread!='account'&&autoContents.length < 1">該当するものがありません。</p>
+            </div>
+            <div class="auto_contents">
+                <h1>auto get contents</h1>
+                <div v-if="autoContents.length >= 1" class="contents">
+                    <div v-for="autoContent in autoContents" class="content" :key="autoContent.id">
+                        <div class="content_image">
+                            <a :href="'/content_detail?auto=1&id='+autoContent.id"><img :src="autoContent.image_url" @error="noImage"></a>
+                        </div>
+                        <div v-if="autoContent.tag != null">
+                            <span class="content_tag">{{autoContent.tag}}</span>
+                        </div>                
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -35,6 +48,7 @@ export default {
     data(){
         return{
             contents:{},
+            autoContents:{},
             load_show:true
         }
     },
@@ -51,6 +65,13 @@ export default {
                         this.contents = res.data.contents;
                     });
         },
+        getAutoVarious(){
+            var params = new URLSearchParams();
+            axios.post("api/home/getAutoVarious",params)
+                    .then(res => {
+                        this.autoContents = res.data.contents;
+                    });
+        },
         getSearch(){
             var params = new URLSearchParams();
             params.append('keyword',this.keywords);
@@ -59,12 +80,28 @@ export default {
                         this.contents = res.data.contents;
                     });
         },
+        getAutoSearch(){
+            var params = new URLSearchParams();
+            params.append('keyword',this.keywords);
+            axios.post("api/home/getAutoSearch",params)
+                    .then(res => {
+                        this.autoContents = res.data.contents;
+                    });
+        },
         getFavorite(){
             var params = new URLSearchParams();
             params.append('user_id',this.loginInfo['user_id']);
             axios.post('api/home/getFavorite',params)
                     .then(res=> {
                         this.contents = res.data.contents;
+                    });
+        },
+        getAutoFavorite(){
+            var params = new URLSearchParams();
+            params.append('user_id',this.loginInfo['user_id']);
+            axios.post('api/home/getAutoFavorite',params)
+                    .then(res=> {
+                        this.autoContents = res.data.contents;
                     });
         },
         getMyContents(){
@@ -77,6 +114,7 @@ export default {
         },
         reload(){
             this.getVarious();
+            this.getAutoVarious();
         },
         timeout(){
             setTimeout(() => {
@@ -94,11 +132,15 @@ export default {
         
         if(this.bread == 'various'){
             this.getVarious();
+            this.getAutoVarious();
+            this.timeout();
         }else if(this.bread == 'search'){
             this.getSearch();
+            this.getAutoSearch();
             this.timeout();
         }else if(this.bread == 'favorite'){
             this.getFavorite();
+            this.getAutoFavorite();
             this.timeout();
         }else if(this.bread == 'account'){
             this.getMyContents();
