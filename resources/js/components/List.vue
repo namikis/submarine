@@ -1,6 +1,9 @@
 <template>
     <div class="list_wrapper">
         <div v-if="bread == 'various'" class="reload" @click="reload()">
+            <div>
+                <img src="/img/submarine_ic.png" alt="">
+            </div>
             <h2>reload</h2>
         </div>
         <div v-else-if="bread == 'search'" class="search_result">
@@ -23,7 +26,7 @@
                 </div>
                 <p v-if="bread!='account'&&autoContents.length < 1">該当するものがありません。</p>
             </div>
-            <div class="auto_contents">
+            <div class="auto_contents" v-if="autoContents.length >= 1"> 
                 <h1>auto get contents</h1>
                 <div v-if="autoContents.length >= 1" class="contents">
                     <div v-for="autoContent in autoContents" class="content" :key="autoContent.id">
@@ -112,6 +115,14 @@ export default {
                         this.contents = res.data.contents;
                     });
         },
+        getMyAutoContents(){
+            var params = new URLSearchParams();
+            params.append('user_id', this.loginInfo['user_id']);
+            axios.post('api/home/getMyAutoContents',params)
+                    .then(res=>{
+                        this.autoContents = res.data.contents;
+                    });
+        },
         reload(){
             this.getVarious();
             this.getAutoVarious();
@@ -144,6 +155,7 @@ export default {
             this.timeout();
         }else if(this.bread == 'account'){
             this.getMyContents();
+            this.getMyAutoContents();
             this.timeout();
         }
 

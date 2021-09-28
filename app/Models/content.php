@@ -92,25 +92,43 @@ class content extends Model
         return $contents;
     }
 
-    public static function getFavoriteById($id){
-        $select = "contents.image_name,tags.tag,contents.id";
+    public static function getFavoriteById($id, $mode=null){
 
-        $contents = DB::table('contents')
-        ->select(DB::raw($select))
-        ->leftjoin('user_favorite','contents.id','=','user_favorite.content_id')
-        ->leftjoin('users','users.id', '=', 'user_favorite.user_id')
-        ->leftjoin('tags','tags.content_id', 'contents.id')
-        ->where('users.id', '=', $id)
-        ->get();
+        if($mode){
+            $contents = DB::table('auto_contents')
+            ->select('image_url', 'auto_tag.tag', 'auto_contents.id')
+            ->leftjoin('auto_user_favorite','auto_contents.id','=','auto_user_favorite.content_id')
+            ->leftjoin('users','users.id', '=', 'auto_user_favorite.user_id')
+            ->leftjoin('auto_tag','auto_tag.content_id', 'auto_contents.id')
+            ->where('users.id', '=', $id)
+            ->get();
+        }else{
+            $select = "contents.image_name,tags.tag,contents.id";
+
+            $contents = DB::table('contents')
+            ->select(DB::raw($select))
+            ->leftjoin('user_favorite','contents.id','=','user_favorite.content_id')
+            ->leftjoin('users','users.id', '=', 'user_favorite.user_id')
+            ->leftjoin('tags','tags.content_id', 'contents.id')
+            ->where('users.id', '=', $id)
+            ->get();
+        }
 
         return $contents;
     }
 
-    public static function update_favoById($content_id,$user_id){
+    public static function update_favoById($content_id,$user_id, $mode=null){
 
         //$user_favorite_id = getFavorite($content_id,$user_id);
+
+        if($mode){
+            $table = "auto_user_favorite";
+        }else{
+            $table = "user_favorite";
+        }
+
         $select = "id";
-        $user_favorite_id = DB::table('user_favorite')
+        $user_favorite_id = DB::table($table)
                         ->select(DB::raw($select))
                         ->where('content_id', "=", $content_id)
                         ->where('user_id', "=", $user_id)
@@ -122,18 +140,23 @@ class content extends Model
                 'content_id' => $content_id
             );
 
-            DB::table('user_favorite')->insert($data);
+            DB::table($table)->insert($data);
         }else{
-            DB::table('user_favorite')
+            DB::table($table)
             ->where('id',$user_favorite_id->id)->delete();
         }
         
     }
 
     //for vue.
-    public static function getFavorite($content_id, $user_id){
+    public static function getFavorite($content_id, $user_id, $mode=null){
+        if($mode){
+            $table = "auto_user_favorite";
+        }else{
+            $table = "user_favorite";
+        }
         $select = "id";
-        $favorite_id = DB::table('user_favorite')
+        $favorite_id = DB::table($table)
                         ->select(DB::raw($select))
                         ->where('content_id', "=", $content_id)
                         ->where('user_id', "=", $user_id)
@@ -166,12 +189,21 @@ class content extends Model
         return $tags;
     }
 
-    public static function getMyContents($user_id){
-        $contents = DB::table('contents')
+    public static function getMyContents($user_id, $mode=null){
+        if($mode){
+            $contents = DB::table('auto_contents')
+                        ->select('auto_contents.image_url','auto_tag.tag','auto_contents.id')
+                        ->leftjoin('auto_tag','auto_contents.id', '=', 'auto_tag.content_id')
+                        ->where('auto_contents.company_id',$user_id)
+                        ->get();
+        }else{
+            $contents = DB::table('contents')
                         ->select('contents.image_name','tags.tag','contents.id')
                         ->leftjoin('tags','contents.id', '=', 'tags.content_id')
                         ->where('contents.company_id',$user_id)
                         ->get();
+        }
+        
         return $contents;
     }
 
@@ -191,14 +223,23 @@ class content extends Model
                 ->first();
     }
 
-    public static function deleteContent($content_id){
-        //delete image file
-        $image_name = DB::table('contents')
-                            ->select('image_name')->where('id', $content_id)->first()->image_name;
-        contentLogic::deleteImage($image_name);
+    public static function deleteContent($content_id, $mode=null){
+        if($mode){
+            $content_table = "auto_contents";
+            $tag_table = "auto_tag";
+        }else{
+            //delete image file
+            $image_name = DB::table('contents')
+            ->select('image_name')->where('id', $content_id)->first()->image_name;
+            contentLogic::deleteImage($image_name);
+            $content_table = "contents";
+            $tag_table = "tags";
+        }
         
-        DB::table('contents')->where('id', $content_id)->delete();
-        DB::table('tags')->where('content_id',$content_id)->delete();
+        DB::table($content_table)->where('id', $content_id)->delete();
+        DB::table($tag_table)->where('content_id',$content_id)->delete();
+        logger($content_id);
+
     }
 
     public static function deleteContentsById($company_id){

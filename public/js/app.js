@@ -1958,16 +1958,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['login_info', 'content_id'],
+  props: ['login_info', 'content_id', 'auto_flag'],
   data: function data() {
     return {
       favoFlag: null,
       loginInfo: null,
-      mode: 0,
-      favDisp: ["fav", "", "faved"]
+      autoFlag: null,
+      mode: 0
     };
   },
   methods: {
@@ -1977,7 +1976,14 @@ __webpack_require__.r(__webpack_exports__);
       var params = new URLSearchParams();
       params.append('user_id', this.loginInfo['user_id']);
       params.append('content_id', this.contentId);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/favo/getFavo", params).then(function (res) {
+
+      if (this.autoFlag) {
+        var apiGetUrl = "/api/favo/getAutoFavo";
+      } else {
+        var apiGetUrl = "/api/favo/getFavo";
+      }
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(apiGetUrl, params).then(function (res) {
         _this.favoFlag = res.data.favoId;
 
         _this.getMode();
@@ -1990,7 +1996,14 @@ __webpack_require__.r(__webpack_exports__);
       var params = new URLSearchParams();
       params.append('user_id', this.loginInfo['user_id']);
       params.append('content_id', this.contentId);
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/api/favo/updateFavo", params).then(function (res) {
+
+      if (this.autoFlag) {
+        var apiUrl = "/api/favo/updateAutoFavo";
+      } else {
+        var apiUrl = "/api/favo/updateFavo";
+      }
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(apiUrl, params).then(function (res) {
         _this2.getFavo();
       });
     },
@@ -2009,6 +2022,7 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     this.loginInfo = JSON.parse(this.login_info);
     this.contentId = JSON.parse(this.content_id);
+    this.autoFlag = JSON.parse(this.auto_flag);
     this.getFavo();
   },
   updated: function updated() {}
@@ -2160,6 +2174,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['login_info', 'Bread', 'Keywords'],
@@ -2237,15 +2254,24 @@ __webpack_require__.r(__webpack_exports__);
         _this7.contents = res.data.contents;
       });
     },
+    getMyAutoContents: function getMyAutoContents() {
+      var _this8 = this;
+
+      var params = new URLSearchParams();
+      params.append('user_id', this.loginInfo['user_id']);
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/home/getMyAutoContents', params).then(function (res) {
+        _this8.autoContents = res.data.contents;
+      });
+    },
     reload: function reload() {
       this.getVarious();
       this.getAutoVarious();
     },
     timeout: function timeout() {
-      var _this8 = this;
+      var _this9 = this;
 
       setTimeout(function () {
-        _this8.load_show = false;
+        _this9.load_show = false;
       }, 1000);
     },
     noImage: function noImage(element) {
@@ -2271,6 +2297,7 @@ __webpack_require__.r(__webpack_exports__);
       this.timeout();
     } else if (this.bread == 'account') {
       this.getMyContents();
+      this.getMyAutoContents();
       this.timeout();
     }
 
@@ -2309,11 +2336,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['modal_mode', 'content_id'],
+  props: ['modal_mode', 'content_id', 'auto_flag'],
   data: function data() {
     return {
-      modal_show: false
+      modal_show: false,
+      autoFlag: null
     };
   },
   methods: {
@@ -2326,6 +2355,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.modalMode = JSON.parse(this.modal_mode);
+    this.autoFlag = JSON.parse(this.auto_flag);
 
     if (this.modalMode == 'content_del') {
       this.contentId = JSON.parse(this.content_id);
@@ -38408,21 +38438,27 @@ var render = function() {
       }
     },
     [
-      _vm.favoFlag == null
-        ? _c("div", [
-            _vm.loginInfo != null
-              ? _c("div", [
-                  _c("div", { staticClass: "content_favorite button fav" }, [
-                    _vm._v(_vm._s(_vm.favDisp[_vm.mode + 1]))
+      _c("div", [
+        _vm.loginInfo != null
+          ? _c("div", [
+              _vm.mode == 1
+                ? _c("div", { staticClass: "content_favorite faved" }, [
+                    _c("i", {
+                      staticClass: "fa fa-star",
+                      attrs: { "aria-hidden": "true" }
+                    })
                   ])
-                ])
-              : _c("div", [_vm._m(0)])
-          ])
-        : _c("div", [
-            _c("div", { staticClass: "content_favorite faved" }, [
-              _vm._v(_vm._s(_vm.favDisp[_vm.mode + 1]))
+                : _vm.mode == -1
+                ? _c("div", { staticClass: "content_favorite fav" }, [
+                    _c("i", {
+                      staticClass: "fa fa-star-o",
+                      attrs: { "aria-hidden": "true" }
+                    })
+                  ])
+                : _vm._e()
             ])
-          ])
+          : _c("div", [_vm._m(0)])
+      ])
     ]
   )
 }
@@ -38644,7 +38680,7 @@ var render = function() {
               }
             }
           },
-          [_c("h2", [_vm._v("reload")])]
+          [_vm._m(0), _vm._v(" "), _c("h2", [_vm._v("reload")])]
         )
       : _vm.bread == "search"
       ? _c("div", { staticClass: "search_result" }, [
@@ -38697,53 +38733,65 @@ var render = function() {
               : _vm._e()
           ]),
       _vm._v(" "),
-      _c("div", { staticClass: "auto_contents" }, [
-        _c("h1", [_vm._v("auto get contents")]),
-        _vm._v(" "),
-        _vm.autoContents.length >= 1
-          ? _c(
-              "div",
-              { staticClass: "contents" },
-              _vm._l(_vm.autoContents, function(autoContent) {
-                return _c(
+      _vm.autoContents.length >= 1
+        ? _c("div", { staticClass: "auto_contents" }, [
+            _c("h1", [_vm._v("auto get contents")]),
+            _vm._v(" "),
+            _vm.autoContents.length >= 1
+              ? _c(
                   "div",
-                  { key: autoContent.id, staticClass: "content" },
-                  [
-                    _c("div", { staticClass: "content_image" }, [
-                      _c(
-                        "a",
-                        {
-                          attrs: {
-                            href: "/content_detail?auto=1&id=" + autoContent.id
-                          }
-                        },
-                        [
-                          _c("img", {
-                            attrs: { src: autoContent.image_url },
-                            on: { error: _vm.noImage }
-                          })
-                        ]
-                      )
-                    ]),
-                    _vm._v(" "),
-                    autoContent.tag != null
-                      ? _c("div", [
-                          _c("span", { staticClass: "content_tag" }, [
-                            _vm._v(_vm._s(autoContent.tag))
-                          ])
-                        ])
-                      : _vm._e()
-                  ]
+                  { staticClass: "contents" },
+                  _vm._l(_vm.autoContents, function(autoContent) {
+                    return _c(
+                      "div",
+                      { key: autoContent.id, staticClass: "content" },
+                      [
+                        _c("div", { staticClass: "content_image" }, [
+                          _c(
+                            "a",
+                            {
+                              attrs: {
+                                href:
+                                  "/content_detail?auto=1&id=" + autoContent.id
+                              }
+                            },
+                            [
+                              _c("img", {
+                                attrs: { src: autoContent.image_url },
+                                on: { error: _vm.noImage }
+                              })
+                            ]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        autoContent.tag != null
+                          ? _c("div", [
+                              _c("span", { staticClass: "content_tag" }, [
+                                _vm._v(_vm._s(autoContent.tag))
+                              ])
+                            ])
+                          : _vm._e()
+                      ]
+                    )
+                  }),
+                  0
                 )
-              }),
-              0
-            )
-          : _vm._e()
-      ])
+              : _vm._e()
+          ])
+        : _vm._e()
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("img", { attrs: { src: "/img/submarine_ic.png", alt: "" } })
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -38770,7 +38818,12 @@ var render = function() {
       ? _c(
           "a",
           { staticClass: "button modal_button", on: { click: _vm.showModal } },
-          [_vm._v("delete")]
+          [
+            _c("i", {
+              staticClass: "fa fa-trash-o",
+              attrs: { "aria-hidden": "true" }
+            })
+          ]
         )
       : _vm.modalMode == "account_del"
       ? _c(
@@ -38799,16 +38852,31 @@ var render = function() {
                     _vm._v("本当に削除しますか？")
                   ]),
                   _vm._v(" "),
-                  _c("p", [
-                    _c(
-                      "a",
-                      {
-                        staticClass: "button",
-                        attrs: { href: "/content/delete?id=" + _vm.contentId }
-                      },
-                      [_vm._v("削除")]
-                    )
-                  ])
+                  _vm.autoFlag
+                    ? _c("p", [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "button",
+                            attrs: {
+                              href: "/content/delete?auto=1&id=" + _vm.contentId
+                            }
+                          },
+                          [_vm._v("削除")]
+                        )
+                      ])
+                    : _c("p", [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "button",
+                            attrs: {
+                              href: "/content/delete?id=" + _vm.contentId
+                            }
+                          },
+                          [_vm._v("削除")]
+                        )
+                      ])
                 ])
               : _vm.modalMode == "account_del"
               ? _c("div", [_vm._m(0), _vm._v(" "), _vm._m(1)])

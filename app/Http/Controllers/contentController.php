@@ -105,12 +105,16 @@ class contentController extends Controller
     public function content_delete(Request $request){
         $loginInfo = session('loginInfo');
         $content_id = $request->id;
-        $company_id = content::getCompany($content_id)->company_id;
-        if(!isset($loginInfo) || $loginInfo['user_id'] != $company_id){
-            return redirect('/signIn');
+        if($request->auto == 1){
+            content::deleteContent($content_id, 1);
+        }else{
+            $company_id = content::getCompany($content_id)->company_id;
+            if(!isset($loginInfo) || $loginInfo['user_id'] != $company_id){
+                return redirect('/signIn');
+            }
+            content::deleteContent($content_id);
         }
-        content::deleteContent($content_id);
-
+        
         return redirect("/account");
     }
 

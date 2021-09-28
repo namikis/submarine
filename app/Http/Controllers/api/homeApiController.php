@@ -42,7 +42,7 @@ class homeApiController extends Controller
 
     public function getAutoFavorite(Request $request){
         $user_id = $request->user_id;
-        $data['contents'] = content::getFavoriteById($user_id);
+        $data['contents'] = content::getFavoriteById($user_id, 1);
         return json_encode($data);
     }
 
@@ -58,6 +58,11 @@ class homeApiController extends Controller
 
     public function getMyContents(Request $request){
         $data['contents'] = content::getMyContents($request->user_id);
+        return json_encode($data);
+    }
+
+    public function getMyAutoContents(Request $request){
+        $data['contents'] = content::getMyContents($request->user_id, 1);
         return json_encode($data);
     }
 }

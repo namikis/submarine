@@ -26,21 +26,41 @@
                 <div class="content_menu_wrapper">
                     <div class="content_edit_wrapper">
                         @if(isset($loginInfo) && $loginInfo['user_id'] == $contents->company_id)
-                            <div class="content_edit"><a href="{{ '/content/edit?id=' . $contents->id }}" class="button">edit</a></div>
-                            <div class="content_delete">
-                                <modal
-                                    modal_mode = "{{ json_encode('content_del') }}"
-                                    content_id = "{{ json_encode($contents->id) }}"
-                                />
-                            </div>
+                            @if(isset($contents->image_name))
+                                <div class="content_edit"><a href="{{ '/content/edit?id=' . $contents->id }}" class="button"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></div>
+                                <div class="content_delete">
+                                    <modal
+                                        modal_mode = "{{ json_encode('content_del') }}"
+                                        content_id = "{{ json_encode($contents->id) }}"
+                                        auto_flag = "{{ json_encode(false) }}"
+                                    />
+                                </div>
+                            @else
+                                <div class="content_delete">
+                                    <modal
+                                        modal_mode = "{{ json_encode('content_del') }}"
+                                        content_id = "{{ json_encode($contents->id) }}"
+                                        auto_flag = "{{ json_encode(true) }}"
+                                    />
+                                </div>
+                            @endif
                             
                         @endif
                     </div>
                     <div class="content_favorite_wrapper">
-                        <favo
-                            login_info = "{{ json_encode($loginInfo) }}"
-                            content_id = "{{ json_encode($contents->id) }}"
-                        />
+                        @if(isset($contents->image_url))
+                            <favo
+                                login_info = "{{ json_encode($loginInfo) }}"
+                                content_id = "{{ json_encode($contents->id) }}"
+                                auto_flag = "{{ json_encode(true) }}"
+                            />
+                        @else
+                            <favo
+                                login_info = "{{ json_encode($loginInfo) }}"
+                                content_id = "{{ json_encode($contents->id) }}"
+                                auto_flag = "{{ json_encode(false) }}"
+                            />
+                        @endif
                     </div>
                 </div>
             

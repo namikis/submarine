@@ -19,6 +19,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/favo/getFavo', 'api\favoApiController@getFavo');
 Route::post('/favo/updateFavo', 'api\favoApiController@updateFavo');
+Route::post('/favo/getAutoFavo', 'api\favoApiController@getAutoFavo');
+Route::post('/favo/updateAutoFavo', 'api\favoApiController@updateAutoFavo');
 
 Route::post('/home/getVarious', 'api\homeApiController@getVarious');
 Route::post('/home/getSearch', 'api\homeApiController@getSearch');
@@ -32,3 +34,4 @@ Route::post('/home/getTags', 'api\homeApiController@getTags');
 Route::post('/home/getAutoTags', 'api\homeApiController@getAutoTags');
 
 Route::post('/home/getMyContents', 'api\homeApiController@getMyContents');
+Route::post('/home/getMyAutoContents', 'api\homeApiController@getMyAutoContents');

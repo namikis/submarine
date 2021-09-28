@@ -57,9 +57,9 @@
     
 
     .faved,.fav{
+        color:#F8A900;
         opacity:0.9;
-        color:lightgrey;
-        padding: 5px 20px;
+        padding: 5px 15px;
         width: 100% !important;
         background: linear-gradient(to top, #0000d2, #5bcaff);
         border-radius: 20px;

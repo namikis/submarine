@@ -53,6 +53,26 @@
     background-color: lightblue;
 }
 
+.reload{
+    right: 5%;
+    bottom: 15%;
+    position: fixed;
+    cursor:pointer;
+    color:white;
+    padding:3px;
+    border-radius:4px;
+    display:inline-block;
+    margin:20px 20px 0 20px;
+}
+
+.reload h2{
+    position: absolute;
+    top: 66%;
+    font-size: 17px;
+    left: 22%;
+    color: mediumblue;
+}
+
 @media screen and (max-width:480px) {
     .list_wrapper, .contents_wrapper{
         padding:20px 0;
