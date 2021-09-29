@@ -65,7 +65,7 @@ use PDO;
             $DB_name = $_ENV['DB_DATABASE'];
             $DB_conn = $_ENV['DB_CONNECTION'];
           
-            $dsn = $DB_conn.':dbname=' . $DB_name . ';host=' . $host . ";port=5432";
+            $dsn = $DB_conn.':dbname=' . $DB_name . ';host=' . $host . ";port=5432;charset=utf8";
             $dbh = new PDO($dsn, $user, $pass);
             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -89,7 +89,7 @@ use PDO;
             $DB_name = $_ENV['DB_DATABASE'];
             $DB_conn = $_ENV['DB_CONNECTION'];
           
-            $dsn = $DB_conn.':dbname=' . $DB_name . ';host=' . $host . ";port=5432";
+            $dsn = $DB_conn.':dbname=' . $DB_name . ';host=' . $host . ";port=5432;charset=utf8";
             $dbh = new PDO($dsn, $user, $pass);
             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -116,7 +116,7 @@ use PDO;
           $command = "python app/auto/scrape.py ";
           exec($command, $output, $status);
 
-
+          echo $output[0];
           for($i=0; $i < 5; $i++){
             $dataList[$i] = getList(mb_convert_encoding($output[$i], 'UTF-8', 'SJIS'));
             //insert
