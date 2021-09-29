@@ -63,8 +63,9 @@ use PDO;
             $user = $_ENV['DB_USERNAME'];
             $pass = $_ENV['DB_PASSWORD'];
             $DB_name = $_ENV['DB_DATABASE'];
+            $DB_conn = $_ENV['DB_CONNECTION'];
           
-            $dsn = 'mysql:dbname=' . $DB_name . ';host=' . $host . ";charset=utf8";
+            $dsn = $DB_conn.':dbname=' . $DB_name . ';host=' . $host . ";port=5432;charset=utf8";
             $dbh = new PDO($dsn, $user, $pass);
             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
@@ -86,8 +87,9 @@ use PDO;
             $user = $_ENV['DB_USERNAME'];
             $pass = $_ENV['DB_PASSWORD'];
             $DB_name = $_ENV['DB_DATABASE'];
+            $DB_conn = $_ENV['DB_CONNECTION'];
           
-            $dsn = 'mysql:dbname=' . $DB_name . ';host=' . $host . ";port=5432;charset=utf8";
+            $dsn = $DB_conn.':dbname=' . $DB_name . ';host=' . $host . ";port=5432;charset=utf8";
             $dbh = new PDO($dsn, $user, $pass);
             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
