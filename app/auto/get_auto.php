@@ -8,16 +8,20 @@ namespace App\auto;
 // $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
 // $dotenv->load();
 
-try {
-  (new \Dotenv\Dotenv(__DIR__.'/../'))->load();
-} catch (\Dotenv\Exception\InvalidPathException $e) {
-  throw $e;
-}
-try {
-  (new \Dotenv\Dotenv(__DIR__.'/../',".herokuconfig"))->load();
-} catch (\Dotenv\Exception\InvalidPathException $e) {
-  throw $e;
-}
+$dotenv = \Dotenv\Dotenv::createImmutable(".herokuconfig");
+$dotenv->load();
+
+// try {
+//   $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+//   $dotenv->load();
+// } catch (\Dotenv\Exception\InvalidPathException $e) {
+//   throw $e;
+// }
+// try {
+//   (new \Dotenv\Dotenv(__DIR__.'/../../',".herokuconfig"))->load();
+// } catch (\Dotenv\Exception\InvalidPathException $e) {
+//   throw $e;
+// }
 
 
 use PDO;
