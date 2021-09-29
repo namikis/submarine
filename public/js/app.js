@@ -38468,7 +38468,12 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "content_favorite button fav" }, [
-      _c("a", { attrs: { href: "/signIn" } }, [_vm._v("fav")])
+      _c("a", { attrs: { href: "/signIn" } }, [
+        _c("i", {
+          staticClass: "fa fa-star-o",
+          attrs: { "aria-hidden": "true" }
+        })
+      ])
     ])
   }
 ]

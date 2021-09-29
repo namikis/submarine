@@ -6,7 +6,7 @@
                 <div class="content_favorite fav" v-else-if="mode==-1"><i class="fa fa-star-o" aria-hidden="true"></i></div>
             </div>
             <div v-else>
-                <div class="content_favorite button fav"><a href="/signIn">fav</a></div>
+                <div class="content_favorite button fav"><a href="/signIn"><i class="fa fa-star-o" aria-hidden="true"></i></a></div>
             </div>
         </div>
         
