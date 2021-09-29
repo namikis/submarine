@@ -110,6 +110,7 @@ use PDO;
           }
 
           echo "crawling...\n";
+          echo $_ENV['DB_HOST'];
 
           $command = "python app/auto/scrape.py ";
           exec($command, $output, $status);
