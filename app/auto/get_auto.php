@@ -5,8 +5,20 @@ namespace App\auto;
  require_once __DIR__ . '/../../vendor/autoload.php';
 // use App\Models\content;
 
-$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
-$dotenv->load();
+// $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+// $dotenv->load();
+
+try {
+  (new \Dotenv\Dotenv(__DIR__.'/../'))->load();
+} catch (\Dotenv\Exception\InvalidPathException $e) {
+  throw $e;
+}
+try {
+  (new \Dotenv\Dotenv(__DIR__.'/../',".herokuconfig"))->load();
+} catch (\Dotenv\Exception\InvalidPathException $e) {
+  throw $e;
+}
+
 
 use PDO;
 
