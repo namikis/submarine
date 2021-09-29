@@ -8,8 +8,8 @@ namespace App\auto;
 // $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
 // $dotenv->load();
 
-$dotenv = \Dotenv\Dotenv::createImmutable(".herokuconfig");
-$dotenv->load();
+// $dotenv = \Dotenv\Dotenv::createImmutable(".herokuconfig");
+// $dotenv->load();
 
 // try {
 //   $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
