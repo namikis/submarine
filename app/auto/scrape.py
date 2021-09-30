@@ -33,7 +33,7 @@ def scraping(url, regs):
 
 def main():
     urls = {
-        "ws" : "https://websv.info/service/2983/"
+        "ws" : "https://websv.info/service/page/"
     }
 
     start_regs = {
@@ -54,13 +54,15 @@ def main():
                 
     }
 
-    url = scraping(urls['ws'], start_regs['ws'])['next_url']
-
+    page = random.randint(2,11)
+    page_url = urls['ws']+str(page)
+    url = scraping(page_url, start_regs['ws'])['next_url']
 
     for i in range(5):
         content = scraping(url, regs['ws'])
         content['url'] = url
-        print(content)
+        if(content['url']):
+            print(content)
         url = content['next_url']
         time.sleep(1)
 
