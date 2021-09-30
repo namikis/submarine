@@ -59,11 +59,13 @@ use PDO;
           }
 
           function checkExist($data){
-            $host = $_ENV['DB_HOST'] . " options='--client_encoding=UTF8'";
+            $host = $_ENV['DB_HOST'];
             $user = $_ENV['DB_USERNAME'];
             $pass = $_ENV['DB_PASSWORD'];
             $DB_name = $_ENV['DB_DATABASE'];
             $DB_conn = $_ENV['DB_CONNECTION'];
+
+            $encoding = "SET CLIENT_ENCODING TO 'UTF8';";
           
             $dsn = $DB_conn.':dbname=' . $DB_name . ';host=' . $host . ";port=5432";
             $dbh = new PDO($dsn, $user, $pass);
@@ -75,7 +77,7 @@ use PDO;
 
             $image_url = $data['image_url'];
             $sql = "select count(id) as count from auto_contents where image_url = '" . $image_url . "'";
-            $stmt = $dbh->prepare($sql);
+            $stmt = $dbh->prepare($encoding . $sql);
             $stmt->execute();
             $rec = $stmt->fetchAll();
             if($rec[0]['count'] == 0){
@@ -86,7 +88,7 @@ use PDO;
           }
 
           function insertContent($data, $tag){
-            $host = $_ENV['DB_HOST'] . " options='--client_encoding=UTF8'";
+            $host = $_ENV['DB_HOST'];
             $user = $_ENV['DB_USERNAME'];
             $pass = $_ENV['DB_PASSWORD'];
             $DB_name = $_ENV['DB_DATABASE'];
@@ -96,13 +98,11 @@ use PDO;
             $dbh = new PDO($dsn, $user, $pass);
             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-            $sql = "SET CLIENT_ENCODING TO 'UTF-8';";
-            $stmt = $dbh->prepare($sql);
-            $stmt->execute();
+            $encoding = "SET CLIENT_ENCODING TO 'UTF8';";
 
             if(checkExist($data) == 1 && $data['image_url'] != ''){
               $sql = genInsertQuery($data, "auto_contents");
-              $stmt = $dbh->prepare($sql);
+              $stmt = $dbh->prepare($encoding . $sql);
               $stmt->execute();
   
               $content_id = $dbh->lastInsertId();
@@ -112,7 +112,7 @@ use PDO;
               );
               $sql = genInsertQuery($data2, "auto_tag");
   
-              $stmt = $dbh->prepare($sql);
+              $stmt = $dbh->prepare($encoding . $sql);
               $stmt->execute();
             }
           }
