@@ -3,25 +3,7 @@
 namespace App\auto;
 
  require_once __DIR__ . '/../../vendor/autoload.php';
-// use App\Models\content;
 
-// $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
-// $dotenv->load();
-
-// $dotenv = \Dotenv\Dotenv::createImmutable(".herokuconfig");
-// $dotenv->load();
-
-// try {
-//   $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
-//   $dotenv->load();
-// } catch (\Dotenv\Exception\InvalidPathException $e) {
-//   throw $e;
-// }
-// try {
-//   (new \Dotenv\Dotenv(__DIR__.'/../../',".herokuconfig"))->load();
-// } catch (\Dotenv\Exception\InvalidPathException $e) {
-//   throw $e;
-// }
 
 use PDO;
 
@@ -109,7 +91,7 @@ use PDO;
               );
               $sql = genInsertQuery($data2, "auto_tag");
   
-              $stmt = $dbh->prepare($encoding . $sql);
+              $stmt = $dbh->prepare($sql);
               $stmt->execute();
             }
           }
