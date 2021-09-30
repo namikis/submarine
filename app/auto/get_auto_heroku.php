@@ -109,6 +109,7 @@ namespace App\auto;
               $sql = genInsertQuery($data, "auto_contents");
               // $stmt = $dbh->prepare($sql);
               // $stmt->execute();
+              echo "\n" . $sql . "\n";
               $res = pg_query($link, $sql);
 
               $sql = "select max(id) as lastId from auto_contents";
@@ -133,7 +134,7 @@ namespace App\auto;
           $command = "python app/auto/scrape.py ";
           exec($command, $output, $status);
 
-          echo $output[0];
+          //echo $output[0];
           for($i=0; $i < 5; $i++){
             $dataList[$i] = getList(mb_convert_encoding($output[$i], 'UTF-8', 'SJIS'));
             //insert
