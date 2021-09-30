@@ -28,7 +28,7 @@ class content extends Model
             ->select('auto_contents.image_url', 'auto_contents.id', 'auto_tag.tag')
             ->leftjoin('auto_tag','auto_contents.id', '=', 'auto_tag.content_id')
             ->inRandomOrder()
-            ->limit(6)->get();
+            ->limit(12)->get();
         }else{
             $select ="contents.image_name,tags.tag,contents.id";
 
@@ -36,7 +36,7 @@ class content extends Model
             ->select(DB::raw($select))
             ->leftjoin('tags','contents.id', '=', 'tags.content_id')
             ->inRandomOrder()
-            ->limit(6)->get();
+            ->limit(12)->get();
         }
         
         return $contents;
