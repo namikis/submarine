@@ -81,6 +81,8 @@ use PDO;
 
             if(checkExist($data) == 1 && $data['image_url'] != ''){
               $sql = genInsertQuery($data, "auto_contents");
+              echo "\ninsert : " . $sql . "\n";
+
               $stmt = $dbh->prepare($sql);
               $stmt->execute();
               $content_id = $dbh->lastInsertId();
