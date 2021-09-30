@@ -110,8 +110,12 @@ namespace App\auto;
               // $stmt = $dbh->prepare($sql);
               // $stmt->execute();
               $res = pg_query($link, $sql);
+
+              $sql = "select max(id) as lastId from auto_contents";
+              $res = pg_query($link, $sql);
+              $rec = pg_fetch_array($res, NULL, PGSQL_ASSOC);
   
-              $content_id = pg_last_oid($res);
+              $content_id = $rec['lastId'];
               $data2 = array(
                   "content_id" => $content_id,
                   "tag" => $tag
