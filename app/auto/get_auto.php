@@ -69,7 +69,9 @@ use PDO;
             $dbh = new PDO($dsn, $user, $pass);
             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-            $dbh->do("SET CLIENT_ENCODING TO 'UTF-8';");
+            $sql = "SET CLIENT_ENCODING TO 'UTF-8';";
+            $stmt = $dbh->prepare($sql);
+            $stmt->execute();
 
             $image_url = $data['image_url'];
             $sql = "select count(id) as count from auto_contents where image_url = '" . $image_url . "'";
@@ -94,7 +96,9 @@ use PDO;
             $dbh = new PDO($dsn, $user, $pass);
             $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-            $dbh->do("SET CLIENT_ENCODING TO 'UTF-8';");
+            $sql = "SET CLIENT_ENCODING TO 'UTF-8';";
+            $stmt = $dbh->prepare($sql);
+            $stmt->execute();
 
             if(checkExist($data) == 1 && $data['image_url'] != ''){
               $sql = genInsertQuery($data, "auto_contents");
