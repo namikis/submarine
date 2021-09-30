@@ -109,9 +109,9 @@ namespace App\auto;
               $sql = genInsertQuery($data, "auto_contents");
               // $stmt = $dbh->prepare($sql);
               // $stmt->execute();
-              pg_query($link, $sql);
+              $res = pg_query($link, $sql);
   
-              $content_id = $dbh->lastInsertId();
+              $content_id = pg_last_oid($res);
               $data2 = array(
                   "content_id" => $content_id,
                   "tag" => $tag
