@@ -78,8 +78,7 @@ use PDO;
             $stmt->execute();
             $rec = $stmt->fetchAll();
 
-            $rec = pg_fetch_array($result, NULL, PGSQL_ASSOC);
-            if($rec['count'] == 0){
+            if($rec[0]['count'] == 0){
               return 1;
             }else{
               return 0;
@@ -104,7 +103,6 @@ use PDO;
               $stmt->execute();
               $content_id = $dbh->lastInsertId();
   
-              $content_id = $rec['lastId'];
               $data2 = array(
                   "content_id" => $content_id,
                   "tag" => $tag
