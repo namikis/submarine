@@ -5,10 +5,25 @@ namespace App\auto;
  require_once __DIR__ . '/../../vendor/autoload.php';
 // use App\Models\content;
 
-$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
-$dotenv->load();
+// $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+// $dotenv->load();
 
-use PDO;
+// $dotenv = \Dotenv\Dotenv::createImmutable(".herokuconfig");
+// $dotenv->load();
+
+// try {
+//   $dotenv = \Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+//   $dotenv->load();
+// } catch (\Dotenv\Exception\InvalidPathException $e) {
+//   throw $e;
+// }
+// try {
+//   (new \Dotenv\Dotenv(__DIR__.'/../../',".herokuconfig"))->load();
+// } catch (\Dotenv\Exception\InvalidPathException $e) {
+//   throw $e;
+// }
+
+
 
           function getList($st){
             $st = substr($st, 1, -1);
@@ -47,18 +62,28 @@ use PDO;
             $user = $_ENV['DB_USERNAME'];
             $pass = $_ENV['DB_PASSWORD'];
             $DB_name = $_ENV['DB_DATABASE'];
+            $DB_conn = $_ENV['DB_CONNECTION'];
           
-            $dsn = 'mysql:dbname=' . $DB_name . ';host=' . $host;
-            $dbh = new PDO($dsn, $user, $pass);
-            $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            // $dsn = $DB_conn.':dbname=' . $DB_name . ';host=' . $host . ";port=5432";
+            // $dbh = new PDO($dsn, $user, $pass);
+            // $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            // $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            // $sql = "SET CLIENT_ENCODING TO 'UTF-8';";
+            // $stmt = $dbh->prepare($sql);
+            // $stmt->execute();
 
-            $image_url = $data['image_url'];
+            // $image_url = $data['image_url'];
             $sql = "select count(id) as count from auto_contents where image_url = '" . $image_url . "'";
-            $stmt = $dbh->prepare($sql);
-            $stmt->execute();
-            $rec = $stmt->fetchAll();
-            if($rec[0]['count'] == 0){
+            // $stmt = $dbh->prepare($sql);
+            // $stmt->execute();
+            // $rec = $stmt->fetchAll();
+            $conn = "host=".$host." dbname=".$DB_name." user=".$user." password=".$pass;
+            $link = pg_connect($conn);
+            pg_set_client_encoding($link, "UNICODE");
+            $result = pg_query($link, $sql);
+
+            $rec = pg_fetch_array($result, NULL, PGSQL_ASSOC);
+            if($rec['count'] == 0){
               return 1;
             }else{
               return 0;
@@ -70,16 +95,21 @@ use PDO;
             $user = $_ENV['DB_USERNAME'];
             $pass = $_ENV['DB_PASSWORD'];
             $DB_name = $_ENV['DB_DATABASE'];
+            $DB_conn = $_ENV['DB_CONNECTION'];
           
-            $dsn = 'mysql:dbname=' . $DB_name . ';host=' . $host;
-            $dbh = new PDO($dsn, $user, $pass);
-            $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            // $dsn = $DB_conn.':dbname=' . $DB_name . ';host=' . $host . ";port=5432";
+            // $dbh = new PDO($dsn, $user, $pass);
+            // $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            // $dbh->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+            $conn = "host=".$host." dbname=".$DB_name." user=".$user." password=".$pass;
+            $link = pg_connect($conn);
+            pg_set_client_encoding($link, "UNICODE");
 
             if(checkExist($data) == 1 && $data['image_url'] != ''){
               $sql = genInsertQuery($data, "auto_contents");
-              $stmt = $dbh->prepare($sql);
-              $stmt->execute();
+              // $stmt = $dbh->prepare($sql);
+              // $stmt->execute();
+              pg_query($link, $sql);
   
               $content_id = $dbh->lastInsertId();
               $data2 = array(
@@ -87,9 +117,10 @@ use PDO;
                   "tag" => $tag
               );
               $sql = genInsertQuery($data2, "auto_tag");
+              pg_query($link, $sql);
   
-              $stmt = $dbh->prepare($sql);
-              $stmt->execute();
+              // $stmt = $dbh->prepare($encoding . $sql);
+              // $stmt->execute();
             }
           }
 
@@ -98,7 +129,7 @@ use PDO;
           $command = "python app/auto/scrape.py ";
           exec($command, $output, $status);
 
-
+          echo $output[0];
           for($i=0; $i < 5; $i++){
             $dataList[$i] = getList(mb_convert_encoding($output[$i], 'UTF-8', 'SJIS'));
             //insert
@@ -118,3 +149,4 @@ use PDO;
 
         
         ?>
+    
