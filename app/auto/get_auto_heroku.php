@@ -23,7 +23,7 @@ namespace App\auto;
 //   throw $e;
 // }
 
-
+use PDO;
 
           function getList($st){
             $st = substr($st, 1, -1);
