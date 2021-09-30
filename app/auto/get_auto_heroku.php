@@ -109,6 +109,7 @@ namespace App\auto;
               $sql = genInsertQuery($data, "auto_contents");
               // $stmt = $dbh->prepare($sql);
               // $stmt->execute();
+              echo "\n" . $data['detail'] . "\n";
               echo "\n" . $sql . "\n";
               $res = pg_query($link, $sql);
 
