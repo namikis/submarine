@@ -10,7 +10,7 @@
             <p>【{{ keywords }}】</p>
         </div>
         <div class="contents_wrapper">
-            <div v-if="contents.length >= 1" class="contents">
+            <div v-if="contents.length >= 1" class="contents hand_contents">
                 <div v-for="content in contents" class="content" :key="content.id">
                     <div class="content_image">
                         <a :href="'/content_detail?id='+content.id"><img :src="'/img/content/'+content.image_name" @error="noImage"></a>

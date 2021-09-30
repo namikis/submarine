@@ -1,0 +1,80 @@
+.whole_intro_wrapper{
+    padding:50px 0;
+    text-align:center;
+}
+
+.intro_mess{
+    margin:50px 0;
+}
+
+.ap_title{
+    font-weight:bold;
+    font-size:20px;
+}
+
+.ap_wrapper{
+    text-align: left;
+    width: 50%;
+    margin: 0 auto;
+    border: 1px solid black;
+    padding: 20px;
+}
+
+.ap_list{
+    width:70%;
+    margin:0 auto;
+}
+
+.intro_1 img{
+    width:800px;
+    height:400px;
+}
+
+.intro_2 img{
+    width:800px;
+    height:500px;
+}
+
+.top_wrapper{
+    background-image:url("../img/sea.jpg");
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    text-align:center;
+}
+
+html,body{
+    margin:0;
+}
+
+.top_title{
+    color:white;
+    margin-bottom:15px;
+}
+
+.top_content{
+    margin-top: 270px;
+    background-color: #F8A900;
+    border-radius: 10px;
+    display: inline-block;
+    padding: 30px 60px;
+}
+
+@media screen and (max-width: 480px) {
+    .top_content{
+        margin-top: 230px;
+    }
+
+    .intro_1 img, .intro_2 img{
+        width: 90%;
+        height: 250px;
+    }
+    
+    .ap_wrapper, .ap_list{
+        width:90%;
+    }
+    .intro_mess{
+        font-size: 20px;
+    }
+
+}

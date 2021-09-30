@@ -31,10 +31,6 @@
             <div class="header_menu">
                 <p class="loginMessage">ようこそ、<a href="/account">{{$loginInfo['user_name']}}</a>様</p>
             </div>
-            @else
-            <div class="header_menu">
-                <a href="/intro" class="loginMessage">Submarineとは？</a>
-            </div>
             @endif
             <div class="header_menu">
                 <form action="/search" method="get">

@@ -49,8 +49,16 @@
     position:relative;
 }
 
-.auto_contents{
+.hand_contents{
     background-color: lightblue;
+}
+
+.auto_contents{
+    margin:20px 0;
+}
+
+.auto_contents h1{
+    padding:10px 0;
 }
 
 .reload{

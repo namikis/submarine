@@ -38697,7 +38697,7 @@ var render = function() {
       _vm.contents.length >= 1
         ? _c(
             "div",
-            { staticClass: "contents" },
+            { staticClass: "contents hand_contents" },
             _vm._l(_vm.contents, function(content) {
               return _c("div", { key: content.id, staticClass: "content" }, [
                 _c("div", { staticClass: "content_image" }, [
