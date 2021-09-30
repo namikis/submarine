@@ -137,7 +137,9 @@ namespace App\auto;
 
           //echo $output[0];
           for($i=0; $i < 5; $i++){
-            $dataList[$i] = getList(mb_convert_encoding($output[$i], 'UTF-8', 'SJIS'));
+            // $dataList[$i] = getList(mb_convert_encoding($output[$i], 'UTF-8', 'SJIS'));
+            $dataList[$i] = getList($output[$i]);
+
             //insert
             $data = array(
              "tag_id" => "2",
