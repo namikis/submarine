@@ -58,7 +58,7 @@ def main():
     page_url = urls['ws']+str(page)
     url = scraping(page_url, start_regs['ws'])['next_url']
 
-    for i in range(5):
+    for i in range(20):
         content = scraping(url, regs['ws'])
         content['url'] = url
         if(content['url']):
